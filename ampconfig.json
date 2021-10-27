@@ -1,0 +1,19 @@
+{
+  "dataServiceGeneratorVersion": "0.10.0",
+  "appInfo": {
+    "name": "Kicsen",
+    "description": "A cooking app for the family",
+    "version": "k5ddy2cf",
+    "id": "ckusjdm4f10955711bs66ulnysc8",
+    "url": "https://app.amplication.com/ckusjdm4f10955711bs66ulnysc8",
+    "settings": {
+      "dbHost": "localhost",
+      "dbName": "",
+      "dbPassword": "admin",
+      "dbPort": 5432,
+      "dbUser": "admin",
+      "appId": "ckusjdm4f10955711bs66ulnysc8",
+      "authProvider": "Http"
+    }
+  }
+}

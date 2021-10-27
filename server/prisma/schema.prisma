@@ -1,0 +1,106 @@
+datasource postgres {
+  provider = "postgresql"
+  url      = env("POSTGRESQL_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  createdAt       DateTime @default(now())
+  families        Family[]
+  favoriteRecipes Recipe[] @relation(name: "favoriteRecipes")
+  firstName       String?
+  id              String   @id @default(cuid())
+  lastName        String?
+  password        String
+  postedRecipes   Recipe[] @relation(name: "postedRecipes")
+  ratings         Rating[]
+  roles           String[]
+  updatedAt       DateTime @updatedAt
+  username        String   @unique
+}
+
+model Recipe {
+  category1   EnumRecipeCategory1
+  category2   EnumRecipeCategory2
+  category3   EnumRecipeCategory3
+  category4   EnumRecipeCategory4[]
+  createdAt   DateTime              @default(now())
+  description String
+  difficulty  EnumRecipeDifficulty
+  id          String                @id @default(cuid())
+  images      Image[]
+  ingredients String
+  likedBy     User[]                @relation(name: "favoriteRecipes")
+  postedBy    User?                 @relation(name: "postedRecipes", fields: [postedById], references: [id])
+  postedById  String?
+  ratings     Rating[]
+  title       String
+  updatedAt   DateTime              @updatedAt
+}
+
+model Rating {
+  comment    String?
+  createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  postedBy   User     @relation(fields: [postedById], references: [id])
+  postedById String
+  recipe     Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId   String
+  stars      Int
+  updatedAt  DateTime @updatedAt
+}
+
+model Family {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  member      User[]
+  updatedAt   DateTime @updatedAt
+}
+
+model Image {
+  createdAt DateTime @default(now())
+  height    Int?
+  id        String   @id @default(cuid())
+  recipe    Recipe?  @relation(fields: [recipeId], references: [id])
+  recipeId  String?
+  updatedAt DateTime @updatedAt
+  url       String?
+  width     Int?
+}
+
+enum EnumRecipeCategory1 {
+  appetizer
+  soup
+  main
+  dessert
+}
+
+enum EnumRecipeCategory2 {
+  salty
+  sweet
+}
+
+enum EnumRecipeCategory3 {
+  vegan
+  nonvegan
+}
+
+enum EnumRecipeCategory4 {
+  chicken
+  seafood
+  beef
+  veal
+  lamb
+  vegetable
+  Fruit
+}
+
+enum EnumRecipeDifficulty {
+  easy
+  medium
+  hard
+}
