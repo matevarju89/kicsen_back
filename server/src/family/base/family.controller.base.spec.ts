@@ -11,12 +11,14 @@ import { FamilyService } from "../family.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  country: "exampleCountry",
   createdAt: new Date(),
   description: "exampleDescription",
   id: "exampleId",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  country: "exampleCountry",
   createdAt: new Date(),
   description: "exampleDescription",
   id: "exampleId",
@@ -24,6 +26,7 @@ const CREATE_RESULT = {
 };
 const FIND_MANY_RESULT = [
   {
+    country: "exampleCountry",
     createdAt: new Date(),
     description: "exampleDescription",
     id: "exampleId",
@@ -31,6 +34,7 @@ const FIND_MANY_RESULT = [
   },
 ];
 const FIND_ONE_RESULT = {
+  country: "exampleCountry",
   createdAt: new Date(),
   description: "exampleDescription",
   id: "exampleId",

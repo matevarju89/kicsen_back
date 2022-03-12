@@ -1,4 +1,7 @@
+import { ImageCreateNestedManyWithoutRecipesInput } from "./ImageCreateNestedManyWithoutRecipesInput";
+import { UserCreateNestedManyWithoutRecipesInput } from "./UserCreateNestedManyWithoutRecipesInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+import { RatingCreateNestedManyWithoutRecipesInput } from "./RatingCreateNestedManyWithoutRecipesInput";
 
 export type RecipeCreateInput = {
   category1: "appetizer" | "soup" | "main" | "dessert";
@@ -9,7 +12,10 @@ export type RecipeCreateInput = {
   >;
   description: string;
   difficulty: "easy" | "medium" | "hard";
+  images?: ImageCreateNestedManyWithoutRecipesInput;
   ingredients: string;
+  likedBy?: UserCreateNestedManyWithoutRecipesInput;
   postedBy?: UserWhereUniqueInput | null;
+  ratings?: RatingCreateNestedManyWithoutRecipesInput;
   title: string;
 };

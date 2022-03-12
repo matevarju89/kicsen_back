@@ -6,6 +6,7 @@ import { FamilyModule } from "./family/family.module";
 import { ImageModule } from "./image/image.module";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
+import { HealthModule } from "./health/health.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
 import { MorganModule } from "nest-morgan";
 import { ConfigModule, ConfigService } from "@nestjs/config";
@@ -23,6 +24,7 @@ import { GraphQLModule } from "@nestjs/graphql";
     ImageModule,
     ACLModule,
     AuthModule,
+    HealthModule,
     SecretsManagerModule,
     MorganModule,
     ConfigModule.forRoot({ isGlobal: true }),
@@ -34,7 +36,8 @@ import { GraphQLModule } from "@nestjs/graphql";
         const playground = configService.get("GRAPHQL_PLAYGROUND");
         const introspection = configService.get("GRAPHQL_INTROSPECTION");
         return {
-          autoSchemaFile: true,
+          autoSchemaFile: "schema.graphql",
+          sortSchema: true,
           playground,
           introspection: playground || introspection,
         };
