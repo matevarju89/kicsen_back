@@ -54,6 +54,7 @@ model Rating {
 }
 
 model Family {
+  country     String?
   createdAt   DateTime @default(now())
   description String?
   id          String   @id @default(cuid())

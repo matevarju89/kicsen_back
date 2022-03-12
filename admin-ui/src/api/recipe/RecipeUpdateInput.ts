@@ -1,4 +1,7 @@
+import { ImageUpdateManyWithoutRecipesInput } from "./ImageUpdateManyWithoutRecipesInput";
+import { UserUpdateManyWithoutRecipesInput } from "./UserUpdateManyWithoutRecipesInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+import { RatingUpdateManyWithoutRecipesInput } from "./RatingUpdateManyWithoutRecipesInput";
 
 export type RecipeUpdateInput = {
   category1?: "appetizer" | "soup" | "main" | "dessert";
@@ -9,7 +12,10 @@ export type RecipeUpdateInput = {
   >;
   description?: string;
   difficulty?: "easy" | "medium" | "hard";
+  images?: ImageUpdateManyWithoutRecipesInput;
   ingredients?: string;
+  likedBy?: UserUpdateManyWithoutRecipesInput;
   postedBy?: UserWhereUniqueInput | null;
+  ratings?: RatingUpdateManyWithoutRecipesInput;
   title?: string;
 };
