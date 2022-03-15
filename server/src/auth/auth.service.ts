@@ -1,18 +1,22 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { PasswordService } from './password.service';
 // @ts-ignore
 // eslint-disable-next-line
-import { UserService } from "../user/user.service";
-import { Credentials } from "./Credentials";
-import { PasswordService } from "./password.service";
+import { UserService } from '../user/user.service';
+import { UserInfo } from './UserInfo';
 import { TokenService } from "./token.service";
-import { UserInfo } from "./UserInfo";
+import { JwtService } from '@nestjs/jwt';
+import { Credentials } from "./Credentials";
+
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly passwordService: PasswordService,
-    private readonly tokenService: TokenService
+    private jwtService: JwtService
+    //private readonly tokenService: TokenService
   ) {}
 
   async validateUser(
@@ -24,7 +28,8 @@ export class AuthService {
     });
     if (user && (await this.passwordService.compare(password, user.password))) {
       const { roles } = user;
-      return { username, roles };
+      const payload = { username: user.username };
+      return { accessToken: this.jwtService.sign(payload), username, roles };
     }
     return null;
   }
