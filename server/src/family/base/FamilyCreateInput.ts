@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, ValidateNested } from "class-validator";
 import { UserCreateNestedManyWithoutFamiliesInput } from "./UserCreateNestedManyWithoutFamiliesInput";
 import { Type } from "class-transformer";
+import { RecipeCreateNestedManyWithoutFamiliesInput } from "./RecipeCreateNestedManyWithoutFamiliesInput";
 @InputType()
 class FamilyCreateInput {
   @ApiProperty({
@@ -49,5 +50,17 @@ class FamilyCreateInput {
     nullable: true,
   })
   member?: UserCreateNestedManyWithoutFamiliesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => RecipeCreateNestedManyWithoutFamiliesInput,
+  })
+  @ValidateNested()
+  @Type(() => RecipeCreateNestedManyWithoutFamiliesInput)
+  @IsOptional()
+  @Field(() => RecipeCreateNestedManyWithoutFamiliesInput, {
+    nullable: true,
+  })
+  recipes?: RecipeCreateNestedManyWithoutFamiliesInput;
 }
 export { FamilyCreateInput };

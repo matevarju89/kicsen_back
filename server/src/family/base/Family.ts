@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { User } from "../../user/base/User";
+import { Recipe } from "../../recipe/base/Recipe";
 @ObjectType()
 class Family {
   @ApiProperty({
@@ -62,6 +63,15 @@ class Family {
   @Type(() => User)
   @IsOptional()
   member?: Array<User>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Recipe],
+  })
+  @ValidateNested()
+  @Type(() => Recipe)
+  @IsOptional()
+  recipes?: Array<Recipe>;
 
   @ApiProperty({
     required: true,

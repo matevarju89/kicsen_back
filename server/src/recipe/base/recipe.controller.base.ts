@@ -82,6 +82,12 @@ export class RecipeControllerBase {
       data: {
         ...data,
 
+        family: data.family
+          ? {
+              connect: data.family,
+            }
+          : undefined,
+
         postedBy: data.postedBy
           ? {
               connect: data.postedBy,
@@ -96,6 +102,13 @@ export class RecipeControllerBase {
         createdAt: true,
         description: true,
         difficulty: true,
+
+        family: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         ingredients: true,
 
@@ -147,6 +160,13 @@ export class RecipeControllerBase {
         createdAt: true,
         description: true,
         difficulty: true,
+
+        family: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         ingredients: true,
 
@@ -197,6 +217,13 @@ export class RecipeControllerBase {
         createdAt: true,
         description: true,
         difficulty: true,
+
+        family: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         ingredients: true,
 
@@ -262,6 +289,12 @@ export class RecipeControllerBase {
         data: {
           ...data,
 
+          family: data.family
+            ? {
+                connect: data.family,
+              }
+            : undefined,
+
           postedBy: data.postedBy
             ? {
                 connect: data.postedBy,
@@ -276,6 +309,13 @@ export class RecipeControllerBase {
           createdAt: true,
           description: true,
           difficulty: true,
+
+          family: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
           ingredients: true,
 
@@ -327,6 +367,13 @@ export class RecipeControllerBase {
           createdAt: true,
           description: true,
           difficulty: true,
+
+          family: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
           ingredients: true,
 

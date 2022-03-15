@@ -30,6 +30,8 @@ model Recipe {
   createdAt   DateTime              @default(now())
   description String
   difficulty  EnumRecipeDifficulty
+  family      Family?               @relation(fields: [familyId], references: [id])
+  familyId    String?
   id          String                @id @default(cuid())
   images      Image[]
   ingredients String
@@ -59,6 +61,7 @@ model Family {
   description String?
   id          String   @id @default(cuid())
   member      User[]
+  recipes     Recipe[]
   updatedAt   DateTime @updatedAt
 }
 

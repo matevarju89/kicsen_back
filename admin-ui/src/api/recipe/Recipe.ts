@@ -1,3 +1,4 @@
+import { Family } from "../family/Family";
 import { Image } from "../image/Image";
 import { User } from "../user/User";
 import { Rating } from "../rating/Rating";
@@ -12,6 +13,7 @@ export type Recipe = {
   createdAt: Date;
   description: string;
   difficulty?: "easy" | "medium" | "hard";
+  family?: Family | null;
   id: string;
   images?: Array<Image>;
   ingredients: string;

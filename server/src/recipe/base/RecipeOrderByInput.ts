@@ -88,6 +88,15 @@ class RecipeOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  familyId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   id?: SortOrder;
 
   @ApiProperty({

@@ -16,6 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { UserListRelationFilter } from "../../user/base/UserListRelationFilter";
+import { RecipeListRelationFilter } from "../../recipe/base/RecipeListRelationFilter";
 @InputType()
 class FamilyWhereInput {
   @ApiProperty({
@@ -62,5 +63,17 @@ class FamilyWhereInput {
     nullable: true,
   })
   member?: UserListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => RecipeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => RecipeListRelationFilter)
+  @IsOptional()
+  @Field(() => RecipeListRelationFilter, {
+    nullable: true,
+  })
+  recipes?: RecipeListRelationFilter;
 }
 export { FamilyWhereInput };

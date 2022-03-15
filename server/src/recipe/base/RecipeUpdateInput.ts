@@ -17,8 +17,9 @@ import { EnumRecipeCategory2 } from "./EnumRecipeCategory2";
 import { EnumRecipeCategory3 } from "./EnumRecipeCategory3";
 import { EnumRecipeCategory4 } from "./EnumRecipeCategory4";
 import { EnumRecipeDifficulty } from "./EnumRecipeDifficulty";
-import { ImageUpdateManyWithoutRecipesInput } from "./ImageUpdateManyWithoutRecipesInput";
+import { FamilyWhereUniqueInput } from "../../family/base/FamilyWhereUniqueInput";
 import { Type } from "class-transformer";
+import { ImageUpdateManyWithoutRecipesInput } from "./ImageUpdateManyWithoutRecipesInput";
 import { UserUpdateManyWithoutRecipesInput } from "./UserUpdateManyWithoutRecipesInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { RatingUpdateManyWithoutRecipesInput } from "./RatingUpdateManyWithoutRecipesInput";
@@ -94,6 +95,18 @@ class RecipeUpdateInput {
     nullable: true,
   })
   difficulty?: "easy" | "medium" | "hard";
+
+  @ApiProperty({
+    required: false,
+    type: () => FamilyWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => FamilyWhereUniqueInput)
+  @IsOptional()
+  @Field(() => FamilyWhereUniqueInput, {
+    nullable: true,
+  })
+  family?: FamilyWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

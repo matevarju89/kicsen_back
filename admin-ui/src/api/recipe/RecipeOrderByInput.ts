@@ -8,6 +8,7 @@ export type RecipeOrderByInput = {
   createdAt?: SortOrder;
   description?: SortOrder;
   difficulty?: SortOrder;
+  familyId?: SortOrder;
   id?: SortOrder;
   ingredients?: SortOrder;
   postedById?: SortOrder;

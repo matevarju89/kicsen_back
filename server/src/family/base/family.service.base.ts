@@ -10,7 +10,7 @@ https://docs.amplication.com/docs/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Family, User } from "@prisma/client";
+import { Prisma, Family, User, Recipe } from "@prisma/client";
 
 export class FamilyServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -56,5 +56,16 @@ export class FamilyServiceBase {
         where: { id: parentId },
       })
       .member(args);
+  }
+
+  async findRecipes(
+    parentId: string,
+    args: Prisma.RecipeFindManyArgs
+  ): Promise<Recipe[]> {
+    return this.prisma.family
+      .findUnique({
+        where: { id: parentId },
+      })
+      .recipes(args);
   }
 }

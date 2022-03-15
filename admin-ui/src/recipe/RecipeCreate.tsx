@@ -10,6 +10,7 @@ import {
   ReferenceInput,
 } from "react-admin";
 
+import { FamilyTitle } from "../family/FamilyTitle";
 import { UserTitle } from "../user/UserTitle";
 
 export const RecipeCreate = (props: CreateProps): React.ReactElement => {
@@ -75,6 +76,9 @@ export const RecipeCreate = (props: CreateProps): React.ReactElement => {
           optionText="label"
           optionValue="value"
         />
+        <ReferenceInput source="family.id" reference="Family" label="Family">
+          <SelectInput optionText={FamilyTitle} />
+        </ReferenceInput>
         <TextInput label="Ingredients" multiline source="ingredients" />
         <ReferenceInput source="user.id" reference="User" label="PostedBy">
           <SelectInput optionText={UserTitle} />
