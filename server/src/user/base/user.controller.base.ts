@@ -490,6 +490,13 @@ export class UserControllerBase {
         createdAt: true,
         description: true,
         difficulty: true,
+
+        family: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         ingredients: true,
 
@@ -680,6 +687,13 @@ export class UserControllerBase {
         createdAt: true,
         description: true,
         difficulty: true,
+
+        family: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         ingredients: true,
 

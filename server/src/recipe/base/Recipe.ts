@@ -24,6 +24,7 @@ import { EnumRecipeCategory3 } from "./EnumRecipeCategory3";
 import { EnumRecipeCategory4 } from "./EnumRecipeCategory4";
 import { Type } from "class-transformer";
 import { EnumRecipeDifficulty } from "./EnumRecipeDifficulty";
+import { Family } from "../../family/base/Family";
 import { Image } from "../../image/base/Image";
 import { User } from "../../user/base/User";
 import { Rating } from "../../rating/base/Rating";
@@ -100,6 +101,15 @@ class Recipe {
     nullable: true,
   })
   difficulty?: "easy" | "medium" | "hard";
+
+  @ApiProperty({
+    required: false,
+    type: () => Family,
+  })
+  @ValidateNested()
+  @Type(() => Family)
+  @IsOptional()
+  family?: Family | null;
 
   @ApiProperty({
     required: true,

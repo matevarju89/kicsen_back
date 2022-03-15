@@ -1,4 +1,5 @@
 import { User } from "../user/User";
+import { Recipe } from "../recipe/Recipe";
 
 export type Family = {
   country: string | null;
@@ -6,5 +7,6 @@ export type Family = {
   description: string | null;
   id: string;
   member?: Array<User>;
+  recipes?: Array<Recipe>;
   updatedAt: Date;
 };

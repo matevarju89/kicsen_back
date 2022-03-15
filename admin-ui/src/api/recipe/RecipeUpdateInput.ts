@@ -1,3 +1,4 @@
+import { FamilyWhereUniqueInput } from "../family/FamilyWhereUniqueInput";
 import { ImageUpdateManyWithoutRecipesInput } from "./ImageUpdateManyWithoutRecipesInput";
 import { UserUpdateManyWithoutRecipesInput } from "./UserUpdateManyWithoutRecipesInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
@@ -12,6 +13,7 @@ export type RecipeUpdateInput = {
   >;
   description?: string;
   difficulty?: "easy" | "medium" | "hard";
+  family?: FamilyWhereUniqueInput | null;
   images?: ImageUpdateManyWithoutRecipesInput;
   ingredients?: string;
   likedBy?: UserUpdateManyWithoutRecipesInput;

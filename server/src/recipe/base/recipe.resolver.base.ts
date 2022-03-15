@@ -31,6 +31,7 @@ import { UserFindManyArgs } from "../../user/base/UserFindManyArgs";
 import { User } from "../../user/base/User";
 import { RatingFindManyArgs } from "../../rating/base/RatingFindManyArgs";
 import { Rating } from "../../rating/base/Rating";
+import { Family } from "../../family/base/Family";
 import { RecipeService } from "../recipe.service";
 
 @graphql.Resolver(() => Recipe)
@@ -140,6 +141,12 @@ export class RecipeResolverBase {
       data: {
         ...args.data,
 
+        family: args.data.family
+          ? {
+              connect: args.data.family,
+            }
+          : undefined,
+
         postedBy: args.data.postedBy
           ? {
               connect: args.data.postedBy,
@@ -186,6 +193,12 @@ export class RecipeResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          family: args.data.family
+            ? {
+                connect: args.data.family,
+              }
+            : undefined,
 
           postedBy: args.data.postedBy
             ? {
@@ -302,6 +315,30 @@ export class RecipeResolverBase {
     }
 
     return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => Family, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Recipe",
+    action: "read",
+    possession: "any",
+  })
+  async family(
+    @graphql.Parent() parent: Recipe,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Family | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Family",
+    });
+    const result = await this.service.getFamily(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
   }
 
   @graphql.ResolveField(() => User, { nullable: true })

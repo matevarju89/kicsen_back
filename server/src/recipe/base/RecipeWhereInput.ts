@@ -18,6 +18,7 @@ import { EnumRecipeCategory3 } from "./EnumRecipeCategory3";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { EnumRecipeDifficulty } from "./EnumRecipeDifficulty";
+import { FamilyWhereUniqueInput } from "../../family/base/FamilyWhereUniqueInput";
 import { ImageListRelationFilter } from "../../image/base/ImageListRelationFilter";
 import { UserListRelationFilter } from "../../user/base/UserListRelationFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
@@ -78,6 +79,18 @@ class RecipeWhereInput {
     nullable: true,
   })
   difficulty?: "easy" | "medium" | "hard";
+
+  @ApiProperty({
+    required: false,
+    type: () => FamilyWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => FamilyWhereUniqueInput)
+  @IsOptional()
+  @Field(() => FamilyWhereUniqueInput, {
+    nullable: true,
+  })
+  family?: FamilyWhereUniqueInput;
 
   @ApiProperty({
     required: false,
