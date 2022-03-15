@@ -5,6 +5,7 @@ export const FamilyCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <TextInput label="Country" source="country" />
         <TextInput label="Description" multiline source="description" />
       </SimpleForm>
     </Create>
