@@ -1,0 +1,553 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input Credentials {
+  password: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum EnumRecipeCategory1 {
+  Appetizer
+  Dessert
+  Main
+  Soup
+}
+
+enum EnumRecipeCategory2 {
+  Salty
+  Sweet
+}
+
+enum EnumRecipeCategory3 {
+  NonVegan
+  Vegan
+}
+
+enum EnumRecipeCategory4 {
+  Beef
+  Chicken
+  Fruit
+  Lamb
+  Seafood
+  Veal
+  Vegetable
+}
+
+enum EnumRecipeDifficulty {
+  Easy
+  Hard
+  Medium
+}
+
+type Family {
+  country: String
+  createdAt: DateTime!
+  description: String
+  id: String!
+  member(orderBy: UserOrderByInput, skip: Float, take: Float, where: UserWhereInput): [User!]!
+  recipes(orderBy: RecipeOrderByInput, skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
+  updatedAt: DateTime!
+}
+
+input FamilyCreateInput {
+  country: String
+  description: String
+  member: UserCreateNestedManyWithoutFamiliesInput
+  recipes: RecipeCreateNestedManyWithoutFamiliesInput
+}
+
+input FamilyCreateNestedManyWithoutUsersInput {
+  connect: [FamilyWhereUniqueInput!]
+}
+
+input FamilyListRelationFilter {
+  every: FamilyWhereInput
+  none: FamilyWhereInput
+  some: FamilyWhereInput
+}
+
+input FamilyOrderByInput {
+  country: SortOrder
+  createdAt: SortOrder
+  description: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+input FamilyUpdateInput {
+  country: String
+  description: String
+  member: UserUpdateManyWithoutFamiliesInput
+  recipes: RecipeUpdateManyWithoutFamiliesInput
+}
+
+input FamilyUpdateManyWithoutUsersInput {
+  connect: [FamilyWhereUniqueInput!]
+  disconnect: [FamilyWhereUniqueInput!]
+  set: [FamilyWhereUniqueInput!]
+}
+
+input FamilyWhereInput {
+  country: StringNullableFilter
+  description: StringNullableFilter
+  id: StringFilter
+  member: UserListRelationFilter
+  recipes: RecipeListRelationFilter
+}
+
+input FamilyWhereUniqueInput {
+  id: String!
+}
+
+type Image {
+  createdAt: DateTime!
+  height: Float
+  id: String!
+  recipe: Recipe
+  updatedAt: DateTime!
+  url: String
+  width: Float
+}
+
+input ImageCreateInput {
+  height: Float
+  recipe: RecipeWhereUniqueInput
+  url: String
+  width: Float
+}
+
+input ImageCreateNestedManyWithoutRecipesInput {
+  connect: [ImageWhereUniqueInput!]
+}
+
+input ImageListRelationFilter {
+  every: ImageWhereInput
+  none: ImageWhereInput
+  some: ImageWhereInput
+}
+
+input ImageOrderByInput {
+  createdAt: SortOrder
+  height: SortOrder
+  id: SortOrder
+  recipeId: SortOrder
+  updatedAt: SortOrder
+  url: SortOrder
+  width: SortOrder
+}
+
+input ImageUpdateInput {
+  height: Float
+  recipe: RecipeWhereUniqueInput
+  url: String
+  width: Float
+}
+
+input ImageUpdateManyWithoutRecipesInput {
+  connect: [ImageWhereUniqueInput!]
+  disconnect: [ImageWhereUniqueInput!]
+  set: [ImageWhereUniqueInput!]
+}
+
+input ImageWhereInput {
+  height: IntNullableFilter
+  id: StringFilter
+  recipe: RecipeWhereUniqueInput
+  url: StringNullableFilter
+  width: IntNullableFilter
+}
+
+input ImageWhereUniqueInput {
+  id: String!
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
+type MetaQueryPayload {
+  count: String!
+}
+
+type Mutation {
+  createFamily(data: FamilyCreateInput!): Family!
+  createImage(data: ImageCreateInput!): Image!
+  createRating(data: RatingCreateInput!): Rating!
+  createRecipe(data: RecipeCreateInput!): Recipe!
+  createUser(data: UserCreateInput!): User!
+  deleteFamily(where: FamilyWhereUniqueInput!): Family!
+  deleteImage(where: ImageWhereUniqueInput!): Image!
+  deleteRating(where: RatingWhereUniqueInput!): Rating!
+  deleteRecipe(where: RecipeWhereUniqueInput!): Recipe!
+  deleteUser(where: UserWhereUniqueInput!): User!
+  login(credentials: Credentials!): UserInfo!
+  updateFamily(data: FamilyUpdateInput!, where: FamilyWhereUniqueInput!): Family!
+  updateImage(data: ImageUpdateInput!, where: ImageWhereUniqueInput!): Image!
+  updateRating(data: RatingUpdateInput!, where: RatingWhereUniqueInput!): Rating!
+  updateRecipe(data: RecipeUpdateInput!, where: RecipeWhereUniqueInput!): Recipe!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+}
+
+type Query {
+  _familiesMeta(orderBy: FamilyOrderByInput, skip: Float, take: Float, where: FamilyWhereInput): MetaQueryPayload!
+  _imagesMeta(orderBy: ImageOrderByInput, skip: Float, take: Float, where: ImageWhereInput): MetaQueryPayload!
+  _ratingsMeta(orderBy: RatingOrderByInput, skip: Float, take: Float, where: RatingWhereInput): MetaQueryPayload!
+  _recipesMeta(orderBy: RecipeOrderByInput, skip: Float, take: Float, where: RecipeWhereInput): MetaQueryPayload!
+  _usersMeta(orderBy: UserOrderByInput, skip: Float, take: Float, where: UserWhereInput): MetaQueryPayload!
+  families(orderBy: FamilyOrderByInput, skip: Float, take: Float, where: FamilyWhereInput): [Family!]!
+  family(where: FamilyWhereUniqueInput!): Family
+  image(where: ImageWhereUniqueInput!): Image
+  images(orderBy: ImageOrderByInput, skip: Float, take: Float, where: ImageWhereInput): [Image!]!
+  rating(where: RatingWhereUniqueInput!): Rating
+  ratings(orderBy: RatingOrderByInput, skip: Float, take: Float, where: RatingWhereInput): [Rating!]!
+  recipe(where: RecipeWhereUniqueInput!): Recipe
+  recipes(orderBy: RecipeOrderByInput, skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
+  user(where: UserWhereUniqueInput!): User
+  userInfo: UserInfo!
+  users(orderBy: UserOrderByInput, skip: Float, take: Float, where: UserWhereInput): [User!]!
+}
+
+enum QueryMode {
+  Default
+  Insensitive
+}
+
+type Rating {
+  comment: String
+  createdAt: DateTime!
+  id: String!
+  postedBy: User
+  recipe: Recipe
+  stars: Float!
+  updatedAt: DateTime!
+}
+
+input RatingCreateInput {
+  comment: String
+  postedBy: UserWhereUniqueInput!
+  recipe: RecipeWhereUniqueInput!
+  stars: Float!
+}
+
+input RatingCreateNestedManyWithoutRecipesInput {
+  connect: [RatingWhereUniqueInput!]
+}
+
+input RatingCreateNestedManyWithoutUsersInput {
+  connect: [RatingWhereUniqueInput!]
+}
+
+input RatingListRelationFilter {
+  every: RatingWhereInput
+  none: RatingWhereInput
+  some: RatingWhereInput
+}
+
+input RatingOrderByInput {
+  comment: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  postedById: SortOrder
+  recipeId: SortOrder
+  stars: SortOrder
+  updatedAt: SortOrder
+}
+
+input RatingUpdateInput {
+  comment: String
+  postedBy: UserWhereUniqueInput
+  recipe: RecipeWhereUniqueInput
+  stars: Float
+}
+
+input RatingUpdateManyWithoutRecipesInput {
+  connect: [RatingWhereUniqueInput!]
+  disconnect: [RatingWhereUniqueInput!]
+  set: [RatingWhereUniqueInput!]
+}
+
+input RatingUpdateManyWithoutUsersInput {
+  connect: [RatingWhereUniqueInput!]
+  disconnect: [RatingWhereUniqueInput!]
+  set: [RatingWhereUniqueInput!]
+}
+
+input RatingWhereInput {
+  comment: StringNullableFilter
+  id: StringFilter
+  postedBy: UserWhereUniqueInput
+  recipe: RecipeWhereUniqueInput
+  stars: IntFilter
+}
+
+input RatingWhereUniqueInput {
+  id: String!
+}
+
+type Recipe {
+  category1: EnumRecipeCategory1
+  category2: EnumRecipeCategory2
+  category3: EnumRecipeCategory3
+  category4: [EnumRecipeCategory4!]
+  createdAt: DateTime!
+  description: String!
+  difficulty: EnumRecipeDifficulty
+  family: Family
+  id: String!
+  images(orderBy: ImageOrderByInput, skip: Float, take: Float, where: ImageWhereInput): [Image!]!
+  ingredients: String!
+  likedBy(orderBy: UserOrderByInput, skip: Float, take: Float, where: UserWhereInput): [User!]!
+  postedBy: User
+  ratings(orderBy: RatingOrderByInput, skip: Float, take: Float, where: RatingWhereInput): [Rating!]!
+  title: String!
+  updatedAt: DateTime!
+}
+
+input RecipeCreateInput {
+  category1: EnumRecipeCategory1!
+  category2: EnumRecipeCategory2!
+  category3: EnumRecipeCategory3!
+  category4: [EnumRecipeCategory4!]
+  description: String!
+  difficulty: EnumRecipeDifficulty!
+  family: FamilyWhereUniqueInput
+  images: ImageCreateNestedManyWithoutRecipesInput
+  ingredients: String!
+  likedBy: UserCreateNestedManyWithoutRecipesInput
+  postedBy: UserWhereUniqueInput
+  ratings: RatingCreateNestedManyWithoutRecipesInput
+  title: String!
+}
+
+input RecipeCreateNestedManyWithoutFamiliesInput {
+  connect: [RecipeWhereUniqueInput!]
+}
+
+input RecipeCreateNestedManyWithoutUsersInput {
+  connect: [RecipeWhereUniqueInput!]
+}
+
+input RecipeListRelationFilter {
+  every: RecipeWhereInput
+  none: RecipeWhereInput
+  some: RecipeWhereInput
+}
+
+input RecipeOrderByInput {
+  category1: SortOrder
+  category2: SortOrder
+  category3: SortOrder
+  category4: SortOrder
+  createdAt: SortOrder
+  description: SortOrder
+  difficulty: SortOrder
+  familyId: SortOrder
+  id: SortOrder
+  ingredients: SortOrder
+  postedById: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+}
+
+input RecipeUpdateInput {
+  category1: EnumRecipeCategory1
+  category2: EnumRecipeCategory2
+  category3: EnumRecipeCategory3
+  category4: [EnumRecipeCategory4!]
+  description: String
+  difficulty: EnumRecipeDifficulty
+  family: FamilyWhereUniqueInput
+  images: ImageUpdateManyWithoutRecipesInput
+  ingredients: String
+  likedBy: UserUpdateManyWithoutRecipesInput
+  postedBy: UserWhereUniqueInput
+  ratings: RatingUpdateManyWithoutRecipesInput
+  title: String
+}
+
+input RecipeUpdateManyWithoutFamiliesInput {
+  connect: [RecipeWhereUniqueInput!]
+  disconnect: [RecipeWhereUniqueInput!]
+  set: [RecipeWhereUniqueInput!]
+}
+
+input RecipeUpdateManyWithoutUsersInput {
+  connect: [RecipeWhereUniqueInput!]
+  disconnect: [RecipeWhereUniqueInput!]
+  set: [RecipeWhereUniqueInput!]
+}
+
+input RecipeWhereInput {
+  category1: EnumRecipeCategory1
+  category2: EnumRecipeCategory2
+  category3: EnumRecipeCategory3
+  description: StringFilter
+  difficulty: EnumRecipeDifficulty
+  family: FamilyWhereUniqueInput
+  id: StringFilter
+  images: ImageListRelationFilter
+  ingredients: StringFilter
+  likedBy: UserListRelationFilter
+  postedBy: UserWhereUniqueInput
+  ratings: RatingListRelationFilter
+  title: StringFilter
+}
+
+input RecipeWhereUniqueInput {
+  id: String!
+}
+
+enum SortOrder {
+  Asc
+  Desc
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+type User {
+  createdAt: DateTime!
+  families(orderBy: FamilyOrderByInput, skip: Float, take: Float, where: FamilyWhereInput): [Family!]!
+  favoriteRecipes(orderBy: RecipeOrderByInput, skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
+  firstName: String
+  id: String!
+  lastName: String
+  postedRecipes(orderBy: RecipeOrderByInput, skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
+  ratings(orderBy: RatingOrderByInput, skip: Float, take: Float, where: RatingWhereInput): [Rating!]!
+  roles: [String!]!
+  updatedAt: DateTime!
+  username: String!
+}
+
+input UserCreateInput {
+  families: FamilyCreateNestedManyWithoutUsersInput
+  favoriteRecipes: RecipeCreateNestedManyWithoutUsersInput
+  firstName: String
+  lastName: String
+  password: String!
+  postedRecipes: RecipeCreateNestedManyWithoutUsersInput
+  ratings: RatingCreateNestedManyWithoutUsersInput
+  roles: [String!]!
+  username: String!
+}
+
+input UserCreateNestedManyWithoutFamiliesInput {
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateNestedManyWithoutRecipesInput {
+  connect: [UserWhereUniqueInput!]
+}
+
+type UserInfo {
+  accessToken: String
+  roles: [String!]!
+  username: String!
+}
+
+input UserListRelationFilter {
+  every: UserWhereInput
+  none: UserWhereInput
+  some: UserWhereInput
+}
+
+input UserOrderByInput {
+  createdAt: SortOrder
+  firstName: SortOrder
+  id: SortOrder
+  lastName: SortOrder
+  password: SortOrder
+  roles: SortOrder
+  updatedAt: SortOrder
+  username: SortOrder
+}
+
+input UserUpdateInput {
+  families: FamilyUpdateManyWithoutUsersInput
+  favoriteRecipes: RecipeUpdateManyWithoutUsersInput
+  firstName: String
+  lastName: String
+  password: String
+  postedRecipes: RecipeUpdateManyWithoutUsersInput
+  ratings: RatingUpdateManyWithoutUsersInput
+  roles: [String!]
+  username: String
+}
+
+input UserUpdateManyWithoutFamiliesInput {
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+}
+
+input UserUpdateManyWithoutRecipesInput {
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+}
+
+input UserWhereInput {
+  families: FamilyListRelationFilter
+  favoriteRecipes: RecipeListRelationFilter
+  firstName: StringNullableFilter
+  id: StringFilter
+  lastName: StringNullableFilter
+  postedRecipes: RecipeListRelationFilter
+  ratings: RatingListRelationFilter
+  username: StringFilter
+}
+
+input UserWhereUniqueInput {
+  id: String!
+}
