@@ -1,10 +1,18 @@
 import { Test } from "@nestjs/testing";
-import { INestApplication, HttpStatus, ExecutionContext } from "@nestjs/common";
+import {
+  INestApplication,
+  HttpStatus,
+  ExecutionContext,
+  CallHandler,
+} from "@nestjs/common";
 import request from "supertest";
 import { MorganModule } from "nest-morgan";
 import { ACGuard } from "nest-access-control";
 import { DefaultAuthGuard } from "../../auth/defaultAuth.guard";
 import { ACLModule } from "../../auth/acl.module";
+import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
+import { map } from "rxjs";
 import { UserController } from "../user.controller";
 import { UserService } from "../user.service";
 
@@ -16,7 +24,6 @@ const CREATE_INPUT = {
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
-  roles: ["exampleRoles"],
   updatedAt: new Date(),
   username: "exampleUsername",
 };
@@ -26,7 +33,6 @@ const CREATE_RESULT = {
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
-  roles: ["exampleRoles"],
   updatedAt: new Date(),
   username: "exampleUsername",
 };
@@ -37,7 +43,6 @@ const FIND_MANY_RESULT = [
     id: "exampleId",
     lastName: "exampleLastName",
     password: "examplePassword",
-    roles: ["exampleRoles"],
     updatedAt: new Date(),
     username: "exampleUsername",
   },
@@ -48,7 +53,6 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
-  roles: ["exampleRoles"],
   updatedAt: new Date(),
   username: "exampleUsername",
 };
@@ -85,6 +89,21 @@ const acGuard = {
   },
 };
 
+const aclFilterResponseInterceptor = {
+  intercept: (context: ExecutionContext, next: CallHandler) => {
+    return next.handle().pipe(
+      map((data) => {
+        return data;
+      })
+    );
+  },
+};
+const aclValidateRequestInterceptor = {
+  intercept: (context: ExecutionContext, next: CallHandler) => {
+    return next.handle();
+  },
+};
+
 describe("User", () => {
   let app: INestApplication;
 
@@ -103,6 +122,10 @@ describe("User", () => {
       .useValue(basicAuthGuard)
       .overrideGuard(ACGuard)
       .useValue(acGuard)
+      .overrideInterceptor(AclFilterResponseInterceptor)
+      .useValue(aclFilterResponseInterceptor)
+      .overrideInterceptor(AclValidateRequestInterceptor)
+      .useValue(aclValidateRequestInterceptor)
       .compile();
 
     app = moduleRef.createNestApplication();
@@ -137,9 +160,9 @@ describe("User", () => {
   test("GET /users/:id non existing", async () => {
     await request(app.getHttpServer())
       .get(`${"/users"}/${nonExistingId}`)
-      .expect(404)
+      .expect(HttpStatus.NOT_FOUND)
       .expect({
-        statusCode: 404,
+        statusCode: HttpStatus.NOT_FOUND,
         message: `No resource was found for {"${"id"}":"${nonExistingId}"}`,
         error: "Not Found",
       });
@@ -153,6 +176,28 @@ describe("User", () => {
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
+      });
+  });
+
+  test("POST /users existing resource", async () => {
+    let agent = request(app.getHttpServer());
+    await agent
+      .post("/users")
+      .send(CREATE_INPUT)
+      .expect(HttpStatus.CREATED)
+      .expect({
+        ...CREATE_RESULT,
+        createdAt: CREATE_RESULT.createdAt.toISOString(),
+        updatedAt: CREATE_RESULT.updatedAt.toISOString(),
+      })
+      .then(function () {
+        agent
+          .post("/users")
+          .send(CREATE_INPUT)
+          .expect(HttpStatus.CONFLICT)
+          .expect({
+            statusCode: HttpStatus.CONFLICT,
+          });
       });
   });
 

@@ -1,6 +1,7 @@
 import { FamilyCreateNestedManyWithoutUsersInput } from "./FamilyCreateNestedManyWithoutUsersInput";
 import { RecipeCreateNestedManyWithoutUsersInput } from "./RecipeCreateNestedManyWithoutUsersInput";
 import { RatingCreateNestedManyWithoutUsersInput } from "./RatingCreateNestedManyWithoutUsersInput";
+import { InputJsonValue } from "../../types";
 
 export type UserCreateInput = {
   families?: FamilyCreateNestedManyWithoutUsersInput;
@@ -10,6 +11,6 @@ export type UserCreateInput = {
   password: string;
   postedRecipes?: RecipeCreateNestedManyWithoutUsersInput;
   ratings?: RatingCreateNestedManyWithoutUsersInput;
-  roles: Array<string>;
+  roles: InputJsonValue;
   username: string;
 };

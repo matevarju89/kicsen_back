@@ -3,7 +3,7 @@ import { RatingOrderByInput } from "./RatingOrderByInput";
 
 export type RatingFindManyArgs = {
   where?: RatingWhereInput;
-  orderBy?: RatingOrderByInput;
+  orderBy?: Array<RatingOrderByInput>;
   skip?: number;
   take?: number;
 };

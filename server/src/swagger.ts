@@ -1,17 +1,17 @@
-import { DocumentBuilder } from "@nestjs/swagger";
+import { DocumentBuilder, SwaggerCustomOptions } from "@nestjs/swagger";
 
 export const swaggerPath = "api";
 
 export const swaggerDocumentOptions = new DocumentBuilder()
   .setTitle("Kicsen")
   .setDescription(
-    'A cooking app for the family\n\n## Congratulations! Your application is ready.\n  \nPlease note that all endpoints are secured with HTTP Basic authentication.\nBy default, your app comes with one user with the username "admin" and password "admin".\nLearn more in [our docs](https://docs.amplication.com)'
+    'A cooking app for the family\n\n## Congratulations! Your service resource is ready.\n  \nPlease note that all endpoints are secured with JWT Bearer authentication.\nBy default, your service resource comes with one user with the username "admin" and password "admin".\nLearn more in [our docs](https://docs.amplication.com)'
   )
-  .setVersion("qhcox0mf")
-  .addBasicAuth()
+  .setVersion("7783hj1q")
+  .addBearerAuth()
   .build();
 
-export const swaggerSetupOptions = {
+export const swaggerSetupOptions: SwaggerCustomOptions = {
   swaggerOptions: {
     persistAuthorization: true,
   },

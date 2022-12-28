@@ -1,22 +1,18 @@
-
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PasswordService } from './password.service';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 // @ts-ignore
 // eslint-disable-next-line
-import { UserService } from '../user/user.service';
-import { UserInfo } from './UserInfo';
-import { TokenService } from "./token.service";
-import { JwtService } from '@nestjs/jwt';
+import { UserService } from "../user/user.service";
 import { Credentials } from "./Credentials";
-
+import { PasswordService } from "./password.service";
+import { TokenService } from "./token.service";
+import { UserInfo } from "./UserInfo";
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly passwordService: PasswordService,
-    private jwtService: JwtService
-    //private readonly tokenService: TokenService
+    private readonly tokenService: TokenService
   ) {}
 
   async validateUser(
@@ -27,9 +23,9 @@ export class AuthService {
       where: { username },
     });
     if (user && (await this.passwordService.compare(password, user.password))) {
-      const { roles } = user;
-      const payload = { username: user.username };
-      return { accessToken: this.jwtService.sign(payload), username, roles };
+      const { id, roles } = user;
+      const roleList = roles as string[];
+      return { id, username, roles: roleList };
     }
     return null;
   }
@@ -43,7 +39,11 @@ export class AuthService {
       throw new UnauthorizedException("The passed credentials are incorrect");
     }
     //@ts-ignore
-    const accessToken = await this.tokenService.createToken(username, password);
+    const accessToken = await this.tokenService.createToken({
+      id: user.id,
+      username,
+      password,
+    });
     return {
       accessToken,
       ...user,

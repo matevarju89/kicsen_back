@@ -1,6 +1,7 @@
 import { Family } from "../family/Family";
 import { Recipe } from "../recipe/Recipe";
 import { Rating } from "../rating/Rating";
+import { JsonValue } from "type-fest";
 
 export type User = {
   createdAt: Date;
@@ -11,7 +12,7 @@ export type User = {
   lastName: string | null;
   postedRecipes?: Array<Recipe>;
   ratings?: Array<Rating>;
-  roles: Array<string>;
+  roles: JsonValue;
   updatedAt: Date;
   username: string;
 };

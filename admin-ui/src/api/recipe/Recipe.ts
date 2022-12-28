@@ -2,6 +2,7 @@ import { Family } from "../family/Family";
 import { Image } from "../image/Image";
 import { User } from "../user/User";
 import { Rating } from "../rating/Rating";
+import { SmartTag } from "../smartTag/SmartTag";
 
 export type Recipe = {
   category1?: "appetizer" | "soup" | "main" | "dessert";
@@ -20,6 +21,7 @@ export type Recipe = {
   likedBy?: Array<User>;
   postedBy?: User | null;
   ratings?: Array<Rating>;
+  smartTags?: Array<SmartTag>;
   title: string;
   updatedAt: Date;
 };

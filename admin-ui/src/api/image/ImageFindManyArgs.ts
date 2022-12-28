@@ -3,7 +3,7 @@ import { ImageOrderByInput } from "./ImageOrderByInput";
 
 export type ImageFindManyArgs = {
   where?: ImageWhereInput;
-  orderBy?: ImageOrderByInput;
+  orderBy?: Array<ImageOrderByInput>;
   skip?: number;
   take?: number;
 };
