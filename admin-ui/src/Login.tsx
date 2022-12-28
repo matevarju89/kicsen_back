@@ -2,17 +2,18 @@ import * as React from "react";
 import { useState } from "react";
 import { useLogin, useNotify, Notification, defaultTheme } from "react-admin";
 import { ThemeProvider } from "@material-ui/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import "./login.scss";
 
 const CLASS_NAME = "login-page";
 
-const Login = ({ theme }: { theme?: object }) => {
+const Login = ({ theme }: any) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const login = useLogin();
   const notify = useNotify();
+  const BASE_URI = process.env.REACT_APP_SERVER_URL;
   const submit = (e: any) => {
     e.preventDefault();
     login({ username, password }).catch(() =>
@@ -21,7 +22,7 @@ const Login = ({ theme }: { theme?: object }) => {
   };
 
   return (
-    <ThemeProvider theme={createMuiTheme(defaultTheme)}>
+    <ThemeProvider theme={createTheme(defaultTheme)}>
       <div className={`${CLASS_NAME}`}>
         <div className={`${CLASS_NAME}__wrapper`}>
           <div className={`${CLASS_NAME}__box`}>
@@ -38,7 +39,7 @@ const Login = ({ theme }: { theme?: object }) => {
               type="button"
               variant="contained"
               color="primary"
-              href="/graphql"
+              href={`${BASE_URI}/graphql`}
             >
               Continue
             </Button>
@@ -93,7 +94,7 @@ const Login = ({ theme }: { theme?: object }) => {
               type="button"
               variant="contained"
               color="primary"
-              href="/api"
+              href={`${BASE_URI}/api`}
             >
               Continue
             </Button>
@@ -103,7 +104,7 @@ const Login = ({ theme }: { theme?: object }) => {
         </div>
         <div className={`${CLASS_NAME}__read-more`}>
           <span>Read </span>
-          <a href="https://docs.amplication.com/docs/api" target="docs">
+          <a href="https://docs.amplication.com/api" target="docs">
             Amplication docs
           </a>
           <span> to learn more</span>

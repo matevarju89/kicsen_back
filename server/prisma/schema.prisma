@@ -1,6 +1,6 @@
 datasource postgres {
   provider = "postgresql"
-  url      = env("POSTGRESQL_URL")
+  url      = env("DB_URL")
 }
 
 generator client {
@@ -17,7 +17,7 @@ model User {
   password        String
   postedRecipes   Recipe[] @relation(name: "postedRecipes")
   ratings         Rating[]
-  roles           String[]
+  roles           Json
   updatedAt       DateTime @updatedAt
   username        String   @unique
 }
@@ -39,6 +39,7 @@ model Recipe {
   postedBy    User?                 @relation(name: "postedRecipes", fields: [postedById], references: [id])
   postedById  String?
   ratings     Rating[]
+  smartTags   SmartTag[]
   title       String
   updatedAt   DateTime              @updatedAt
 }
@@ -76,6 +77,15 @@ model Image {
   width     Int?
 }
 
+model SmartTag {
+  createdAt DateTime          @default(now())
+  id        String            @id @default(cuid())
+  lang      EnumSmartTagLang?
+  name      String?
+  recipe    Recipe[]
+  updatedAt DateTime          @updatedAt
+}
+
 enum EnumRecipeCategory1 {
   appetizer
   soup
@@ -107,4 +117,9 @@ enum EnumRecipeDifficulty {
   easy
   medium
   hard
+}
+
+enum EnumSmartTagLang {
+  En
+  Hu
 }

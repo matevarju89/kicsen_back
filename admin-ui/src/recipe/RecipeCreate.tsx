@@ -8,10 +8,14 @@ import {
   SelectArrayInput,
   TextInput,
   ReferenceInput,
+  ReferenceArrayInput,
 } from "react-admin";
 
 import { FamilyTitle } from "../family/FamilyTitle";
+import { ImageTitle } from "../image/ImageTitle";
 import { UserTitle } from "../user/UserTitle";
+import { RatingTitle } from "../rating/RatingTitle";
+import { SmartTagTitle } from "../smartTag/SmartTagTitle";
 
 export const RecipeCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -79,10 +83,42 @@ export const RecipeCreate = (props: CreateProps): React.ReactElement => {
         <ReferenceInput source="family.id" reference="Family" label="Family">
           <SelectInput optionText={FamilyTitle} />
         </ReferenceInput>
+        <ReferenceArrayInput
+          source="images"
+          reference="Image"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ImageTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Ingredients" multiline source="ingredients" />
+        <ReferenceArrayInput
+          source="likedBy"
+          reference="User"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={UserTitle} />
+        </ReferenceArrayInput>
         <ReferenceInput source="user.id" reference="User" label="PostedBy">
           <SelectInput optionText={UserTitle} />
         </ReferenceInput>
+        <ReferenceArrayInput
+          source="ratings"
+          reference="Rating"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={RatingTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="smartTags"
+          reference="SmartTag"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SmartTagTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Title" source="title" />
       </SimpleForm>
     </Create>

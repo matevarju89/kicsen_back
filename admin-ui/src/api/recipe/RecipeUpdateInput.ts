@@ -3,6 +3,7 @@ import { ImageUpdateManyWithoutRecipesInput } from "./ImageUpdateManyWithoutReci
 import { UserUpdateManyWithoutRecipesInput } from "./UserUpdateManyWithoutRecipesInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 import { RatingUpdateManyWithoutRecipesInput } from "./RatingUpdateManyWithoutRecipesInput";
+import { SmartTagUpdateManyWithoutRecipesInput } from "./SmartTagUpdateManyWithoutRecipesInput";
 
 export type RecipeUpdateInput = {
   category1?: "appetizer" | "soup" | "main" | "dessert";
@@ -19,5 +20,6 @@ export type RecipeUpdateInput = {
   likedBy?: UserUpdateManyWithoutRecipesInput;
   postedBy?: UserWhereUniqueInput | null;
   ratings?: RatingUpdateManyWithoutRecipesInput;
+  smartTags?: SmartTagUpdateManyWithoutRecipesInput;
   title?: string;
 };

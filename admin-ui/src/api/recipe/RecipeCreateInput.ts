@@ -3,6 +3,7 @@ import { ImageCreateNestedManyWithoutRecipesInput } from "./ImageCreateNestedMan
 import { UserCreateNestedManyWithoutRecipesInput } from "./UserCreateNestedManyWithoutRecipesInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 import { RatingCreateNestedManyWithoutRecipesInput } from "./RatingCreateNestedManyWithoutRecipesInput";
+import { SmartTagCreateNestedManyWithoutRecipesInput } from "./SmartTagCreateNestedManyWithoutRecipesInput";
 
 export type RecipeCreateInput = {
   category1: "appetizer" | "soup" | "main" | "dessert";
@@ -19,5 +20,6 @@ export type RecipeCreateInput = {
   likedBy?: UserCreateNestedManyWithoutRecipesInput;
   postedBy?: UserWhereUniqueInput | null;
   ratings?: RatingCreateNestedManyWithoutRecipesInput;
+  smartTags?: SmartTagCreateNestedManyWithoutRecipesInput;
   title: string;
 };

@@ -42,12 +42,6 @@
     "attributes": "*"
   },
   {
-    "role": "user",
-    "resource": "User",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
     "role": "superadmin",
     "resource": "User",
     "action": "read:any",
@@ -222,12 +216,6 @@
     "attributes": "*"
   },
   {
-    "role": "user",
-    "resource": "Family",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
     "role": "superadmin",
     "resource": "Family",
     "action": "read:any",
@@ -296,6 +284,66 @@
   {
     "role": "user",
     "resource": "Image",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superadmin",
+    "resource": "SmartTag",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SmartTag",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "superadmin",
+    "resource": "SmartTag",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SmartTag",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superadmin",
+    "resource": "SmartTag",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SmartTag",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superadmin",
+    "resource": "SmartTag",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SmartTag",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superadmin",
+    "resource": "SmartTag",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SmartTag",
     "action": "read:any",
     "attributes": "*"
   }

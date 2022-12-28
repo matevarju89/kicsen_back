@@ -4,6 +4,7 @@ import { ImageListRelationFilter } from "../image/ImageListRelationFilter";
 import { UserListRelationFilter } from "../user/UserListRelationFilter";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 import { RatingListRelationFilter } from "../rating/RatingListRelationFilter";
+import { SmartTagListRelationFilter } from "../smartTag/SmartTagListRelationFilter";
 
 export type RecipeWhereInput = {
   category1?: "appetizer" | "soup" | "main" | "dessert";
@@ -18,5 +19,6 @@ export type RecipeWhereInput = {
   likedBy?: UserListRelationFilter;
   postedBy?: UserWhereUniqueInput;
   ratings?: RatingListRelationFilter;
+  smartTags?: SmartTagListRelationFilter;
   title?: StringFilter;
 };

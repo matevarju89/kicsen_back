@@ -3,7 +3,7 @@ import { FamilyOrderByInput } from "./FamilyOrderByInput";
 
 export type FamilyFindManyArgs = {
   where?: FamilyWhereInput;
-  orderBy?: FamilyOrderByInput;
+  orderBy?: Array<FamilyOrderByInput>;
   skip?: number;
   take?: number;
 };

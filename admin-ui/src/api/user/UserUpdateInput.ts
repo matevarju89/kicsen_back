@@ -1,6 +1,7 @@
 import { FamilyUpdateManyWithoutUsersInput } from "./FamilyUpdateManyWithoutUsersInput";
 import { RecipeUpdateManyWithoutUsersInput } from "./RecipeUpdateManyWithoutUsersInput";
 import { RatingUpdateManyWithoutUsersInput } from "./RatingUpdateManyWithoutUsersInput";
+import { InputJsonValue } from "../../types";
 
 export type UserUpdateInput = {
   families?: FamilyUpdateManyWithoutUsersInput;
@@ -10,6 +11,6 @@ export type UserUpdateInput = {
   password?: string;
   postedRecipes?: RecipeUpdateManyWithoutUsersInput;
   ratings?: RatingUpdateManyWithoutUsersInput;
-  roles?: Array<string>;
+  roles?: InputJsonValue;
   username?: string;
 };

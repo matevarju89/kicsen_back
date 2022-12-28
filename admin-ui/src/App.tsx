@@ -25,7 +25,11 @@ import { ImageList } from "./image/ImageList";
 import { ImageCreate } from "./image/ImageCreate";
 import { ImageEdit } from "./image/ImageEdit";
 import { ImageShow } from "./image/ImageShow";
-import { httpAuthProvider } from "./auth-provider/ra-auth-http";
+import { SmartTagList } from "./smartTag/SmartTagList";
+import { SmartTagCreate } from "./smartTag/SmartTagCreate";
+import { SmartTagEdit } from "./smartTag/SmartTagEdit";
+import { SmartTagShow } from "./smartTag/SmartTagShow";
+import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
   const [dataProvider, setDataProvider] = useState<DataProvider | null>(null);
@@ -46,7 +50,7 @@ const App = (): React.ReactElement => {
       <Admin
         title={"Kicsen"}
         dataProvider={dataProvider}
-        authProvider={httpAuthProvider}
+        authProvider={jwtAuthProvider}
         theme={theme}
         dashboard={Dashboard}
         loginPage={Login}
@@ -85,6 +89,13 @@ const App = (): React.ReactElement => {
           edit={ImageEdit}
           create={ImageCreate}
           show={ImageShow}
+        />
+        <Resource
+          name="SmartTag"
+          list={SmartTagList}
+          edit={SmartTagEdit}
+          create={SmartTagCreate}
+          show={SmartTagShow}
         />
       </Admin>
     </div>
