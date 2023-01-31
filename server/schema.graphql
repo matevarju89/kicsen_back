@@ -45,13 +45,18 @@ enum EnumRecipeDifficulty {
   Medium
 }
 
+enum EnumSmartTagLang {
+  En
+  Hu
+}
+
 type Family {
   country: String
   createdAt: DateTime!
   description: String
   id: String!
-  member(orderBy: UserOrderByInput, skip: Float, take: Float, where: UserWhereInput): [User!]!
-  recipes(orderBy: RecipeOrderByInput, skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
+  member(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): [User!]!
+  recipes(orderBy: [RecipeOrderByInput!], skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
   updatedAt: DateTime!
 }
 
@@ -189,8 +194,13 @@ input IntNullableFilter {
   notIn: [Int!]
 }
 
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
 type MetaQueryPayload {
-  count: String!
+  count: Float!
 }
 
 type Mutation {
@@ -198,37 +208,43 @@ type Mutation {
   createImage(data: ImageCreateInput!): Image!
   createRating(data: RatingCreateInput!): Rating!
   createRecipe(data: RecipeCreateInput!): Recipe!
+  createSmartTag(data: SmartTagCreateInput!): SmartTag!
   createUser(data: UserCreateInput!): User!
   deleteFamily(where: FamilyWhereUniqueInput!): Family!
   deleteImage(where: ImageWhereUniqueInput!): Image!
   deleteRating(where: RatingWhereUniqueInput!): Rating!
   deleteRecipe(where: RecipeWhereUniqueInput!): Recipe!
+  deleteSmartTag(where: SmartTagWhereUniqueInput!): SmartTag!
   deleteUser(where: UserWhereUniqueInput!): User!
   login(credentials: Credentials!): UserInfo!
   updateFamily(data: FamilyUpdateInput!, where: FamilyWhereUniqueInput!): Family!
   updateImage(data: ImageUpdateInput!, where: ImageWhereUniqueInput!): Image!
   updateRating(data: RatingUpdateInput!, where: RatingWhereUniqueInput!): Rating!
   updateRecipe(data: RecipeUpdateInput!, where: RecipeWhereUniqueInput!): Recipe!
+  updateSmartTag(data: SmartTagUpdateInput!, where: SmartTagWhereUniqueInput!): SmartTag!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
 type Query {
-  _familiesMeta(orderBy: FamilyOrderByInput, skip: Float, take: Float, where: FamilyWhereInput): MetaQueryPayload!
-  _imagesMeta(orderBy: ImageOrderByInput, skip: Float, take: Float, where: ImageWhereInput): MetaQueryPayload!
-  _ratingsMeta(orderBy: RatingOrderByInput, skip: Float, take: Float, where: RatingWhereInput): MetaQueryPayload!
-  _recipesMeta(orderBy: RecipeOrderByInput, skip: Float, take: Float, where: RecipeWhereInput): MetaQueryPayload!
-  _usersMeta(orderBy: UserOrderByInput, skip: Float, take: Float, where: UserWhereInput): MetaQueryPayload!
-  families(orderBy: FamilyOrderByInput, skip: Float, take: Float, where: FamilyWhereInput): [Family!]!
+  _familiesMeta(orderBy: [FamilyOrderByInput!], skip: Float, take: Float, where: FamilyWhereInput): MetaQueryPayload!
+  _imagesMeta(orderBy: [ImageOrderByInput!], skip: Float, take: Float, where: ImageWhereInput): MetaQueryPayload!
+  _ratingsMeta(orderBy: [RatingOrderByInput!], skip: Float, take: Float, where: RatingWhereInput): MetaQueryPayload!
+  _recipesMeta(orderBy: [RecipeOrderByInput!], skip: Float, take: Float, where: RecipeWhereInput): MetaQueryPayload!
+  _smartTagsMeta(orderBy: [SmartTagOrderByInput!], skip: Float, take: Float, where: SmartTagWhereInput): MetaQueryPayload!
+  _usersMeta(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): MetaQueryPayload!
+  families(orderBy: [FamilyOrderByInput!], skip: Float, take: Float, where: FamilyWhereInput): [Family!]!
   family(where: FamilyWhereUniqueInput!): Family
   image(where: ImageWhereUniqueInput!): Image
-  images(orderBy: ImageOrderByInput, skip: Float, take: Float, where: ImageWhereInput): [Image!]!
+  images(orderBy: [ImageOrderByInput!], skip: Float, take: Float, where: ImageWhereInput): [Image!]!
   rating(where: RatingWhereUniqueInput!): Rating
-  ratings(orderBy: RatingOrderByInput, skip: Float, take: Float, where: RatingWhereInput): [Rating!]!
+  ratings(orderBy: [RatingOrderByInput!], skip: Float, take: Float, where: RatingWhereInput): [Rating!]!
   recipe(where: RecipeWhereUniqueInput!): Recipe
-  recipes(orderBy: RecipeOrderByInput, skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
+  recipes(orderBy: [RecipeOrderByInput!], skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
+  smartTag(where: SmartTagWhereUniqueInput!): SmartTag
+  smartTags(orderBy: [SmartTagOrderByInput!], skip: Float, take: Float, where: SmartTagWhereInput): [SmartTag!]!
   user(where: UserWhereUniqueInput!): User
   userInfo: UserInfo!
-  users(orderBy: UserOrderByInput, skip: Float, take: Float, where: UserWhereInput): [User!]!
+  users(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): [User!]!
 }
 
 enum QueryMode {
@@ -318,11 +334,12 @@ type Recipe {
   difficulty: EnumRecipeDifficulty
   family: Family
   id: String!
-  images(orderBy: ImageOrderByInput, skip: Float, take: Float, where: ImageWhereInput): [Image!]!
+  images(orderBy: [ImageOrderByInput!], skip: Float, take: Float, where: ImageWhereInput): [Image!]!
   ingredients: String!
-  likedBy(orderBy: UserOrderByInput, skip: Float, take: Float, where: UserWhereInput): [User!]!
+  likedBy(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): [User!]!
   postedBy: User
-  ratings(orderBy: RatingOrderByInput, skip: Float, take: Float, where: RatingWhereInput): [Rating!]!
+  ratings(orderBy: [RatingOrderByInput!], skip: Float, take: Float, where: RatingWhereInput): [Rating!]!
+  smartTags(orderBy: [SmartTagOrderByInput!], skip: Float, take: Float, where: SmartTagWhereInput): [SmartTag!]!
   title: String!
   updatedAt: DateTime!
 }
@@ -340,10 +357,15 @@ input RecipeCreateInput {
   likedBy: UserCreateNestedManyWithoutRecipesInput
   postedBy: UserWhereUniqueInput
   ratings: RatingCreateNestedManyWithoutRecipesInput
+  smartTags: SmartTagCreateNestedManyWithoutRecipesInput
   title: String!
 }
 
 input RecipeCreateNestedManyWithoutFamiliesInput {
+  connect: [RecipeWhereUniqueInput!]
+}
+
+input RecipeCreateNestedManyWithoutSmartTagsInput {
   connect: [RecipeWhereUniqueInput!]
 }
 
@@ -386,10 +408,17 @@ input RecipeUpdateInput {
   likedBy: UserUpdateManyWithoutRecipesInput
   postedBy: UserWhereUniqueInput
   ratings: RatingUpdateManyWithoutRecipesInput
+  smartTags: SmartTagUpdateManyWithoutRecipesInput
   title: String
 }
 
 input RecipeUpdateManyWithoutFamiliesInput {
+  connect: [RecipeWhereUniqueInput!]
+  disconnect: [RecipeWhereUniqueInput!]
+  set: [RecipeWhereUniqueInput!]
+}
+
+input RecipeUpdateManyWithoutSmartTagsInput {
   connect: [RecipeWhereUniqueInput!]
   disconnect: [RecipeWhereUniqueInput!]
   set: [RecipeWhereUniqueInput!]
@@ -414,10 +443,67 @@ input RecipeWhereInput {
   likedBy: UserListRelationFilter
   postedBy: UserWhereUniqueInput
   ratings: RatingListRelationFilter
+  smartTags: SmartTagListRelationFilter
   title: StringFilter
 }
 
 input RecipeWhereUniqueInput {
+  id: String!
+}
+
+type SmartTag {
+  createdAt: DateTime!
+  id: String!
+  lang: EnumSmartTagLang
+  name: String
+  recipe(orderBy: [RecipeOrderByInput!], skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
+  updatedAt: DateTime!
+}
+
+input SmartTagCreateInput {
+  lang: EnumSmartTagLang
+  name: String
+  recipe: RecipeCreateNestedManyWithoutSmartTagsInput
+}
+
+input SmartTagCreateNestedManyWithoutRecipesInput {
+  connect: [SmartTagWhereUniqueInput!]
+}
+
+input SmartTagListRelationFilter {
+  every: SmartTagWhereInput
+  none: SmartTagWhereInput
+  some: SmartTagWhereInput
+}
+
+input SmartTagOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  lang: SortOrder
+  name: SortOrder
+  updatedAt: SortOrder
+}
+
+input SmartTagUpdateInput {
+  lang: EnumSmartTagLang
+  name: String
+  recipe: RecipeUpdateManyWithoutSmartTagsInput
+}
+
+input SmartTagUpdateManyWithoutRecipesInput {
+  connect: [SmartTagWhereUniqueInput!]
+  disconnect: [SmartTagWhereUniqueInput!]
+  set: [SmartTagWhereUniqueInput!]
+}
+
+input SmartTagWhereInput {
+  id: StringFilter
+  lang: EnumSmartTagLang
+  name: StringNullableFilter
+  recipe: RecipeListRelationFilter
+}
+
+input SmartTagWhereUniqueInput {
   id: String!
 }
 
@@ -458,14 +544,14 @@ input StringNullableFilter {
 
 type User {
   createdAt: DateTime!
-  families(orderBy: FamilyOrderByInput, skip: Float, take: Float, where: FamilyWhereInput): [Family!]!
-  favoriteRecipes(orderBy: RecipeOrderByInput, skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
+  families(orderBy: [FamilyOrderByInput!], skip: Float, take: Float, where: FamilyWhereInput): [Family!]!
+  favoriteRecipes(orderBy: [RecipeOrderByInput!], skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
   firstName: String
   id: String!
   lastName: String
-  postedRecipes(orderBy: RecipeOrderByInput, skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
-  ratings(orderBy: RatingOrderByInput, skip: Float, take: Float, where: RatingWhereInput): [Rating!]!
-  roles: [String!]!
+  postedRecipes(orderBy: [RecipeOrderByInput!], skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
+  ratings(orderBy: [RatingOrderByInput!], skip: Float, take: Float, where: RatingWhereInput): [Rating!]!
+  roles: JSON!
   updatedAt: DateTime!
   username: String!
 }
@@ -478,7 +564,7 @@ input UserCreateInput {
   password: String!
   postedRecipes: RecipeCreateNestedManyWithoutUsersInput
   ratings: RatingCreateNestedManyWithoutUsersInput
-  roles: [String!]!
+  roles: JSON!
   username: String!
 }
 
@@ -492,6 +578,7 @@ input UserCreateNestedManyWithoutRecipesInput {
 
 type UserInfo {
   accessToken: String
+  id: String!
   roles: [String!]!
   username: String!
 }
@@ -521,7 +608,7 @@ input UserUpdateInput {
   password: String
   postedRecipes: RecipeUpdateManyWithoutUsersInput
   ratings: RatingUpdateManyWithoutUsersInput
-  roles: [String!]
+  roles: JSON
   username: String
 }
 
