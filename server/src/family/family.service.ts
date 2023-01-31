@@ -16,6 +16,11 @@ export class FamilyService extends FamilyServiceBase {
         where: { id: parentId },
       })
       .recipes(args);
-    return (await recipes).length;
+    const result = await recipes;
+    if (result) {
+      return result.length;
+    } else {
+      return 0;
+    }
   }
 }
