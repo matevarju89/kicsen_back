@@ -9,11 +9,13 @@ generator client {
 
 model User {
   createdAt       DateTime @default(now())
-  families        Family[]
+  families        Family[] @relation(name: "families")
   favoriteRecipes Recipe[] @relation(name: "favoriteRecipes")
   firstName       String?
   id              String   @id @default(cuid())
   lastName        String?
+  ownFamily       Family?  @relation(name: "ownFamily", fields: [ownFamilyId], references: [id])
+  ownFamilyId     String?
   password        String
   postedRecipes   Recipe[] @relation(name: "postedRecipes")
   ratings         Rating[]
@@ -61,7 +63,8 @@ model Family {
   createdAt   DateTime @default(now())
   description String?
   id          String   @id @default(cuid())
-  member      User[]
+  member      User[]   @relation(name: "families")
+  ownUsers    User[]   @relation(name: "ownFamily")
   recipes     Recipe[]
   updatedAt   DateTime @updatedAt
 }

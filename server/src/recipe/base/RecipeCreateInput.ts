@@ -24,6 +24,7 @@ import { UserCreateNestedManyWithoutRecipesInput } from "./UserCreateNestedManyW
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { RatingCreateNestedManyWithoutRecipesInput } from "./RatingCreateNestedManyWithoutRecipesInput";
 import { SmartTagCreateNestedManyWithoutRecipesInput } from "./SmartTagCreateNestedManyWithoutRecipesInput";
+
 @InputType()
 class RecipeCreateInput {
   @ApiProperty({
@@ -170,4 +171,5 @@ class RecipeCreateInput {
   @Field(() => String)
   title!: string;
 }
+
 export { RecipeCreateInput };

@@ -21,6 +21,7 @@ import {
 import { Type } from "class-transformer";
 import { User } from "../../user/base/User";
 import { Recipe } from "../../recipe/base/Recipe";
+
 @ObjectType()
 class Rating {
   @ApiProperty({
@@ -82,4 +83,5 @@ class Rating {
   @Field(() => Date)
   updatedAt!: Date;
 }
+
 export { Rating };

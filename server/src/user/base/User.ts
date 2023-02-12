@@ -24,6 +24,7 @@ import { Recipe } from "../../recipe/base/Recipe";
 import { Rating } from "../../rating/base/Rating";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
+
 @ObjectType()
 class User {
   @ApiProperty({
@@ -84,6 +85,15 @@ class User {
 
   @ApiProperty({
     required: false,
+    type: () => Family,
+  })
+  @ValidateNested()
+  @Type(() => Family)
+  @IsOptional()
+  ownFamily?: Family | null;
+
+  @ApiProperty({
+    required: false,
     type: () => [Recipe],
   })
   @ValidateNested()
@@ -123,4 +133,5 @@ class User {
   @Field(() => String)
   username!: string;
 }
+
 export { User };

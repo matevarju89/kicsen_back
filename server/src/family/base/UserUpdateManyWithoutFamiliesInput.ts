@@ -12,6 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
+
 @InputType()
 class UserUpdateManyWithoutFamiliesInput {
   @Field(() => [UserWhereUniqueInput], {
@@ -41,4 +42,5 @@ class UserUpdateManyWithoutFamiliesInput {
   })
   set?: Array<UserWhereUniqueInput>;
 }
+
 export { UserUpdateManyWithoutFamiliesInput };

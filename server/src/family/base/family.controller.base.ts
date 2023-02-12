@@ -207,6 +207,13 @@ export class FamilyControllerBase {
         firstName: true,
         id: true,
         lastName: true,
+
+        ownFamily: {
+          select: {
+            id: true,
+          },
+        },
+
         roles: true,
         updatedAt: true,
         username: true,
@@ -276,6 +283,112 @@ export class FamilyControllerBase {
   ): Promise<void> {
     const data = {
       member: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/ownUsers")
+  @ApiNestedQuery(UserFindManyArgs)
+  async findManyOwnUsers(
+    @common.Req() request: Request,
+    @common.Param() params: FamilyWhereUniqueInput
+  ): Promise<User[]> {
+    const query = plainToClass(UserFindManyArgs, request.query);
+    const results = await this.service.findOwnUsers(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        firstName: true,
+        id: true,
+        lastName: true,
+
+        ownFamily: {
+          select: {
+            id: true,
+          },
+        },
+
+        roles: true,
+        updatedAt: true,
+        username: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Family",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/ownUsers")
+  async connectOwnUsers(
+    @common.Param() params: FamilyWhereUniqueInput,
+    @common.Body() body: UserWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      ownUsers: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Family",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/ownUsers")
+  async updateOwnUsers(
+    @common.Param() params: FamilyWhereUniqueInput,
+    @common.Body() body: UserWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      ownUsers: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Family",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/ownUsers")
+  async disconnectOwnUsers(
+    @common.Param() params: FamilyWhereUniqueInput,
+    @common.Body() body: UserWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      ownUsers: {
         disconnect: body,
       },
     };

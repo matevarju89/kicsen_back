@@ -10,6 +10,7 @@ export type User = {
   firstName: string | null;
   id: string;
   lastName: string | null;
+  ownFamily?: Family | null;
   postedRecipes?: Array<Recipe>;
   ratings?: Array<Rating>;
   roles: JsonValue;

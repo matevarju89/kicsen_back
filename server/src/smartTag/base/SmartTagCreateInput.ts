@@ -15,6 +15,7 @@ import { EnumSmartTagLang } from "./EnumSmartTagLang";
 import { IsEnum, IsOptional, IsString, ValidateNested } from "class-validator";
 import { RecipeCreateNestedManyWithoutSmartTagsInput } from "./RecipeCreateNestedManyWithoutSmartTagsInput";
 import { Type } from "class-transformer";
+
 @InputType()
 class SmartTagCreateInput {
   @ApiProperty({
@@ -51,4 +52,5 @@ class SmartTagCreateInput {
   })
   recipe?: RecipeCreateNestedManyWithoutSmartTagsInput;
 }
+
 export { SmartTagCreateInput };

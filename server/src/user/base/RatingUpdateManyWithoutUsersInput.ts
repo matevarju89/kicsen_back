@@ -12,6 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { RatingWhereUniqueInput } from "../../rating/base/RatingWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
+
 @InputType()
 class RatingUpdateManyWithoutUsersInput {
   @Field(() => [RatingWhereUniqueInput], {
@@ -41,4 +42,5 @@ class RatingUpdateManyWithoutUsersInput {
   })
   set?: Array<RatingWhereUniqueInput>;
 }
+
 export { RatingUpdateManyWithoutUsersInput };

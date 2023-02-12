@@ -27,6 +27,14 @@ export const FamilyCreate = (props: CreateProps): React.ReactElement => {
           <SelectArrayInput optionText={UserTitle} />
         </ReferenceArrayInput>
         <ReferenceArrayInput
+          source="ownUsers"
+          reference="User"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={UserTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
           source="recipes"
           reference="Recipe"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}

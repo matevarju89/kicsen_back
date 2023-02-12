@@ -24,6 +24,7 @@ import { UserUpdateManyWithoutRecipesInput } from "./UserUpdateManyWithoutRecipe
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { RatingUpdateManyWithoutRecipesInput } from "./RatingUpdateManyWithoutRecipesInput";
 import { SmartTagUpdateManyWithoutRecipesInput } from "./SmartTagUpdateManyWithoutRecipesInput";
+
 @InputType()
 class RecipeUpdateInput {
   @ApiProperty({
@@ -191,4 +192,5 @@ class RecipeUpdateInput {
   })
   title?: string;
 }
+
 export { RecipeUpdateInput };

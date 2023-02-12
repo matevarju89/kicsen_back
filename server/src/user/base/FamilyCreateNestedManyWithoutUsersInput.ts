@@ -12,6 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { FamilyWhereUniqueInput } from "../../family/base/FamilyWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
+
 @InputType()
 class FamilyCreateNestedManyWithoutUsersInput {
   @Field(() => [FamilyWhereUniqueInput], {
@@ -23,4 +24,5 @@ class FamilyCreateNestedManyWithoutUsersInput {
   })
   connect?: Array<FamilyWhereUniqueInput>;
 }
+
 export { FamilyCreateNestedManyWithoutUsersInput };

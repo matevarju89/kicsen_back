@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { RecipeWhereUniqueInput } from "../../recipe/base/RecipeWhereUniqueInput";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+
 @InputType()
 class ImageWhereInput {
   @ApiProperty({
@@ -75,4 +76,5 @@ class ImageWhereInput {
   })
   width?: IntNullableFilter;
 }
+
 export { ImageWhereInput };

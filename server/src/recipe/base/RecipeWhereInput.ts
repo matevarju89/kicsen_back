@@ -24,6 +24,7 @@ import { UserListRelationFilter } from "../../user/base/UserListRelationFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { RatingListRelationFilter } from "../../rating/base/RatingListRelationFilter";
 import { SmartTagListRelationFilter } from "../../smartTag/base/SmartTagListRelationFilter";
+
 @InputType()
 class RecipeWhereInput {
   @ApiProperty({
@@ -186,4 +187,5 @@ class RecipeWhereInput {
   })
   title?: StringFilter;
 }
+
 export { RecipeWhereInput };

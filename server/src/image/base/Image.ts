@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Recipe } from "../../recipe/base/Recipe";
+
 @ObjectType()
 class Image {
   @ApiProperty({
@@ -88,4 +89,5 @@ class Image {
   })
   width!: number | null;
 }
+
 export { Image };

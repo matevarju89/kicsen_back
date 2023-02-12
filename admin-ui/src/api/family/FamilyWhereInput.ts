@@ -8,5 +8,6 @@ export type FamilyWhereInput = {
   description?: StringNullableFilter;
   id?: StringFilter;
   member?: UserListRelationFilter;
+  ownUsers?: UserListRelationFilter;
   recipes?: RecipeListRelationFilter;
 };
