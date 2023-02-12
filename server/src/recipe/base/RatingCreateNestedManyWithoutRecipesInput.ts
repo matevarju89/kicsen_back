@@ -12,6 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { RatingWhereUniqueInput } from "../../rating/base/RatingWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
+
 @InputType()
 class RatingCreateNestedManyWithoutRecipesInput {
   @Field(() => [RatingWhereUniqueInput], {
@@ -23,4 +24,5 @@ class RatingCreateNestedManyWithoutRecipesInput {
   })
   connect?: Array<RatingWhereUniqueInput>;
 }
+
 export { RatingCreateNestedManyWithoutRecipesInput };

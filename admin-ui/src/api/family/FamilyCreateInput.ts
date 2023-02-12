@@ -5,5 +5,6 @@ export type FamilyCreateInput = {
   country?: string | null;
   description?: string | null;
   member?: UserCreateNestedManyWithoutFamiliesInput;
+  ownUsers?: UserCreateNestedManyWithoutFamiliesInput;
   recipes?: RecipeCreateNestedManyWithoutFamiliesInput;
 };

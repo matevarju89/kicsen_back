@@ -21,6 +21,7 @@ import {
 import { Type } from "class-transformer";
 import { EnumSmartTagLang } from "./EnumSmartTagLang";
 import { Recipe } from "../../recipe/base/Recipe";
+
 @ObjectType()
 class SmartTag {
   @ApiProperty({
@@ -78,4 +79,5 @@ class SmartTag {
   @Field(() => Date)
   updatedAt!: Date;
 }
+
 export { SmartTag };

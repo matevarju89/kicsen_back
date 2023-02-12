@@ -15,9 +15,11 @@ import { FamilyUpdateManyWithoutUsersInput } from "./FamilyUpdateManyWithoutUser
 import { ValidateNested, IsOptional, IsString, IsJSON } from "class-validator";
 import { Type } from "class-transformer";
 import { RecipeUpdateManyWithoutUsersInput } from "./RecipeUpdateManyWithoutUsersInput";
+import { FamilyWhereUniqueInput } from "../../family/base/FamilyWhereUniqueInput";
 import { RatingUpdateManyWithoutUsersInput } from "./RatingUpdateManyWithoutUsersInput";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+
 @InputType()
 class UserUpdateInput {
   @ApiProperty({
@@ -65,6 +67,18 @@ class UserUpdateInput {
     nullable: true,
   })
   lastName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => FamilyWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => FamilyWhereUniqueInput)
+  @IsOptional()
+  @Field(() => FamilyWhereUniqueInput, {
+    nullable: true,
+  })
+  ownFamily?: FamilyWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -122,4 +136,5 @@ class UserUpdateInput {
   })
   username?: string;
 }
+
 export { UserUpdateInput };

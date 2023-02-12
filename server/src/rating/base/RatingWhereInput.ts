@@ -18,6 +18,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { RecipeWhereUniqueInput } from "../../recipe/base/RecipeWhereUniqueInput";
 import { IntFilter } from "../../util/IntFilter";
+
 @InputType()
 class RatingWhereInput {
   @ApiProperty({
@@ -77,4 +78,5 @@ class RatingWhereInput {
   })
   stars?: IntFilter;
 }
+
 export { RatingWhereInput };

@@ -7,6 +7,8 @@ import {
   ReferenceArrayInput,
   SelectArrayInput,
   TextInput,
+  ReferenceInput,
+  SelectInput,
   PasswordInput,
 } from "react-admin";
 
@@ -37,6 +39,13 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
         </ReferenceArrayInput>
         <TextInput label="First Name" source="firstName" />
         <TextInput label="Last Name" source="lastName" />
+        <ReferenceInput
+          source="family.id"
+          reference="Family"
+          label="Own_Family"
+        >
+          <SelectInput optionText={FamilyTitle} />
+        </ReferenceInput>
         <PasswordInput label="Password" source="password" />
         <ReferenceArrayInput
           source="postedRecipes"

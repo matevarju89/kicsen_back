@@ -17,7 +17,9 @@ import { Type } from "class-transformer";
 import { RecipeListRelationFilter } from "../../recipe/base/RecipeListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { FamilyWhereUniqueInput } from "../../family/base/FamilyWhereUniqueInput";
 import { RatingListRelationFilter } from "../../rating/base/RatingListRelationFilter";
+
 @InputType()
 class UserWhereInput {
   @ApiProperty({
@@ -79,6 +81,18 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => FamilyWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => FamilyWhereUniqueInput)
+  @IsOptional()
+  @Field(() => FamilyWhereUniqueInput, {
+    nullable: true,
+  })
+  ownFamily?: FamilyWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
     type: () => RecipeListRelationFilter,
   })
   @ValidateNested()
@@ -112,4 +126,5 @@ class UserWhereInput {
   })
   username?: StringFilter;
 }
+
 export { UserWhereInput };

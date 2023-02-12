@@ -15,9 +15,11 @@ import { FamilyCreateNestedManyWithoutUsersInput } from "./FamilyCreateNestedMan
 import { ValidateNested, IsOptional, IsString, IsJSON } from "class-validator";
 import { Type } from "class-transformer";
 import { RecipeCreateNestedManyWithoutUsersInput } from "./RecipeCreateNestedManyWithoutUsersInput";
+import { FamilyWhereUniqueInput } from "../../family/base/FamilyWhereUniqueInput";
 import { RatingCreateNestedManyWithoutUsersInput } from "./RatingCreateNestedManyWithoutUsersInput";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+
 @InputType()
 class UserCreateInput {
   @ApiProperty({
@@ -67,6 +69,18 @@ class UserCreateInput {
   lastName?: string | null;
 
   @ApiProperty({
+    required: false,
+    type: () => FamilyWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => FamilyWhereUniqueInput)
+  @IsOptional()
+  @Field(() => FamilyWhereUniqueInput, {
+    nullable: true,
+  })
+  ownFamily?: FamilyWhereUniqueInput | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
@@ -113,4 +127,5 @@ class UserCreateInput {
   @Field(() => String)
   username!: string;
 }
+
 export { UserCreateInput };

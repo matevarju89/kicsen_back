@@ -12,6 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ImageWhereUniqueInput } from "../../image/base/ImageWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
+
 @InputType()
 class ImageUpdateManyWithoutRecipesInput {
   @Field(() => [ImageWhereUniqueInput], {
@@ -41,4 +42,5 @@ class ImageUpdateManyWithoutRecipesInput {
   })
   set?: Array<ImageWhereUniqueInput>;
 }
+
 export { ImageUpdateManyWithoutRecipesInput };

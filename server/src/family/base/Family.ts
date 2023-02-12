@@ -15,6 +15,7 @@ import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { User } from "../../user/base/User";
 import { Recipe } from "../../recipe/base/Recipe";
+
 @ObjectType()
 class Family {
   @ApiProperty({
@@ -66,6 +67,15 @@ class Family {
 
   @ApiProperty({
     required: false,
+    type: () => [User],
+  })
+  @ValidateNested()
+  @Type(() => User)
+  @IsOptional()
+  ownUsers?: Array<User>;
+
+  @ApiProperty({
+    required: false,
     type: () => [Recipe],
   })
   @ValidateNested()
@@ -81,4 +91,5 @@ class Family {
   @Field(() => Date)
   updatedAt!: Date;
 }
+
 export { Family };

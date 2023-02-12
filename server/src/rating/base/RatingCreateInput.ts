@@ -15,6 +15,7 @@ import { IsString, IsOptional, ValidateNested, IsInt } from "class-validator";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { Type } from "class-transformer";
 import { RecipeWhereUniqueInput } from "../../recipe/base/RecipeWhereUniqueInput";
+
 @InputType()
 class RatingCreateInput {
   @ApiProperty({
@@ -54,4 +55,5 @@ class RatingCreateInput {
   @Field(() => Number)
   stars!: number;
 }
+
 export { RatingCreateInput };

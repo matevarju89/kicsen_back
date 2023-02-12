@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsInt, IsOptional, ValidateNested, IsString } from "class-validator";
 import { RecipeWhereUniqueInput } from "../../recipe/base/RecipeWhereUniqueInput";
 import { Type } from "class-transformer";
+
 @InputType()
 class ImageCreateInput {
   @ApiProperty({
@@ -61,4 +62,5 @@ class ImageCreateInput {
   })
   width?: number | null;
 }
+
 export { ImageCreateInput };

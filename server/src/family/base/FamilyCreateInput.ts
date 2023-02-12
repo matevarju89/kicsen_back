@@ -15,6 +15,7 @@ import { IsString, IsOptional, ValidateNested } from "class-validator";
 import { UserCreateNestedManyWithoutFamiliesInput } from "./UserCreateNestedManyWithoutFamiliesInput";
 import { Type } from "class-transformer";
 import { RecipeCreateNestedManyWithoutFamiliesInput } from "./RecipeCreateNestedManyWithoutFamiliesInput";
+
 @InputType()
 class FamilyCreateInput {
   @ApiProperty({
@@ -53,6 +54,18 @@ class FamilyCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => UserCreateNestedManyWithoutFamiliesInput,
+  })
+  @ValidateNested()
+  @Type(() => UserCreateNestedManyWithoutFamiliesInput)
+  @IsOptional()
+  @Field(() => UserCreateNestedManyWithoutFamiliesInput, {
+    nullable: true,
+  })
+  ownUsers?: UserCreateNestedManyWithoutFamiliesInput;
+
+  @ApiProperty({
+    required: false,
     type: () => RecipeCreateNestedManyWithoutFamiliesInput,
   })
   @ValidateNested()
@@ -63,4 +76,5 @@ class FamilyCreateInput {
   })
   recipes?: RecipeCreateNestedManyWithoutFamiliesInput;
 }
+
 export { FamilyCreateInput };

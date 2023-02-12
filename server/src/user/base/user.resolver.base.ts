@@ -96,7 +96,15 @@ export class UserResolverBase {
   async createUser(@graphql.Args() args: CreateUserArgs): Promise<User> {
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        ownFamily: args.data.ownFamily
+          ? {
+              connect: args.data.ownFamily,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -111,7 +119,15 @@ export class UserResolverBase {
     try {
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          ownFamily: args.data.ownFamily
+            ? {
+                connect: args.data.ownFamily,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -220,5 +236,21 @@ export class UserResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Family, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Family",
+    action: "read",
+    possession: "any",
+  })
+  async ownFamily(@graphql.Parent() parent: User): Promise<Family | null> {
+    const result = await this.service.getOwnFamily(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

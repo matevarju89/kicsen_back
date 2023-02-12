@@ -12,6 +12,7 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { SmartTagWhereUniqueInput } from "../../smartTag/base/SmartTagWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
+
 @InputType()
 class SmartTagCreateNestedManyWithoutRecipesInput {
   @Field(() => [SmartTagWhereUniqueInput], {
@@ -23,4 +24,5 @@ class SmartTagCreateNestedManyWithoutRecipesInput {
   })
   connect?: Array<SmartTagWhereUniqueInput>;
 }
+
 export { SmartTagCreateNestedManyWithoutRecipesInput };

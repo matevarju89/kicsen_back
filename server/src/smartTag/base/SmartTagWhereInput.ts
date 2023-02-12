@@ -17,6 +17,7 @@ import { IsOptional, IsEnum, ValidateNested } from "class-validator";
 import { EnumSmartTagLang } from "./EnumSmartTagLang";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { RecipeListRelationFilter } from "../../recipe/base/RecipeListRelationFilter";
+
 @InputType()
 class SmartTagWhereInput {
   @ApiProperty({
@@ -64,4 +65,5 @@ class SmartTagWhereInput {
   })
   recipe?: RecipeListRelationFilter;
 }
+
 export { SmartTagWhereInput };

@@ -29,6 +29,7 @@ import { Image } from "../../image/base/Image";
 import { User } from "../../user/base/User";
 import { Rating } from "../../rating/base/Rating";
 import { SmartTag } from "../../smartTag/base/SmartTag";
+
 @ObjectType()
 class Recipe {
   @ApiProperty({
@@ -189,4 +190,5 @@ class Recipe {
   @Field(() => Date)
   updatedAt!: Date;
 }
+
 export { Recipe };
