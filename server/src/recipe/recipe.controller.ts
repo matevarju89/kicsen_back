@@ -54,6 +54,9 @@ export class RecipeController extends RecipeControllerBase {
             url: true,
           },
         },
+        smartTags: {
+          select: { id: true, name: true },
+        },
         family: {
           select: {
             id: true,
