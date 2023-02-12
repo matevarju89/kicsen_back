@@ -59,7 +59,9 @@ export class FamilyController extends FamilyControllerBase {
             id: true,
           },
         },
-
+        smartTags: {
+          select: { id: true, name: true, lang: true },
+        },
         id: true,
         ingredients: true,
 
