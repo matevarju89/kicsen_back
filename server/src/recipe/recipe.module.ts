@@ -3,12 +3,13 @@ import { RecipeModuleBase } from './base/recipe.module.base';
 import { RecipeService } from './recipe.service';
 import { RecipeController } from './recipe.controller';
 import { RecipeResolver } from './recipe.resolver';
+import { PrismaService } from 'nestjs-prisma';
 const bodyParser = require('body-parser');
 
 @Module({
   imports: [RecipeModuleBase],
   controllers: [RecipeController],
-  providers: [RecipeService, RecipeResolver],
+  providers: [RecipeService, PrismaService, RecipeResolver],
   exports: [RecipeService],
 })
 export class RecipeModule {}
