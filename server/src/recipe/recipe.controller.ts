@@ -108,7 +108,7 @@ export class RecipeController extends RecipeControllerBase {
           },
         },
         smartTags: {
-          select: { id: true, name: true },
+          select: { id: true, name: true, lang: true },
         },
         family: {
           select: {

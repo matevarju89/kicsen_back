@@ -56,6 +56,7 @@ type Family {
   description: String
   id: String!
   member(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): [User!]!
+  ownUsers(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): [User!]!
   recipes(orderBy: [RecipeOrderByInput!], skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
   updatedAt: DateTime!
 }
@@ -64,6 +65,7 @@ input FamilyCreateInput {
   country: String
   description: String
   member: UserCreateNestedManyWithoutFamiliesInput
+  ownUsers: UserCreateNestedManyWithoutFamiliesInput
   recipes: RecipeCreateNestedManyWithoutFamiliesInput
 }
 
@@ -89,6 +91,7 @@ input FamilyUpdateInput {
   country: String
   description: String
   member: UserUpdateManyWithoutFamiliesInput
+  ownUsers: UserUpdateManyWithoutFamiliesInput
   recipes: RecipeUpdateManyWithoutFamiliesInput
 }
 
@@ -103,6 +106,7 @@ input FamilyWhereInput {
   description: StringNullableFilter
   id: StringFilter
   member: UserListRelationFilter
+  ownUsers: UserListRelationFilter
   recipes: RecipeListRelationFilter
 }
 
@@ -549,6 +553,7 @@ type User {
   firstName: String
   id: String!
   lastName: String
+  ownFamily: Family
   postedRecipes(orderBy: [RecipeOrderByInput!], skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
   ratings(orderBy: [RatingOrderByInput!], skip: Float, take: Float, where: RatingWhereInput): [Rating!]!
   roles: JSON!
@@ -561,6 +566,7 @@ input UserCreateInput {
   favoriteRecipes: RecipeCreateNestedManyWithoutUsersInput
   firstName: String
   lastName: String
+  ownFamily: FamilyWhereUniqueInput
   password: String!
   postedRecipes: RecipeCreateNestedManyWithoutUsersInput
   ratings: RatingCreateNestedManyWithoutUsersInput
@@ -594,6 +600,7 @@ input UserOrderByInput {
   firstName: SortOrder
   id: SortOrder
   lastName: SortOrder
+  ownFamilyId: SortOrder
   password: SortOrder
   roles: SortOrder
   updatedAt: SortOrder
@@ -605,6 +612,7 @@ input UserUpdateInput {
   favoriteRecipes: RecipeUpdateManyWithoutUsersInput
   firstName: String
   lastName: String
+  ownFamily: FamilyWhereUniqueInput
   password: String
   postedRecipes: RecipeUpdateManyWithoutUsersInput
   ratings: RatingUpdateManyWithoutUsersInput
@@ -630,6 +638,7 @@ input UserWhereInput {
   firstName: StringNullableFilter
   id: StringFilter
   lastName: StringNullableFilter
+  ownFamily: FamilyWhereUniqueInput
   postedRecipes: RecipeListRelationFilter
   ratings: RatingListRelationFilter
   username: StringFilter
