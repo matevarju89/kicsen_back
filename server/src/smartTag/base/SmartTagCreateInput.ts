@@ -11,13 +11,26 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { EnumSmartTagLang } from "./EnumSmartTagLang";
-import { IsEnum, IsOptional, IsString, ValidateNested } from "class-validator";
-import { RecipeCreateNestedManyWithoutSmartTagsInput } from "./RecipeCreateNestedManyWithoutSmartTagsInput";
+import { FamilyWhereUniqueInput } from "../../family/base/FamilyWhereUniqueInput";
+import { ValidateNested, IsOptional, IsEnum, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { EnumSmartTagLang } from "./EnumSmartTagLang";
+import { RecipeCreateNestedManyWithoutSmartTagsInput } from "./RecipeCreateNestedManyWithoutSmartTagsInput";
 
 @InputType()
 class SmartTagCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => FamilyWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => FamilyWhereUniqueInput)
+  @IsOptional()
+  @Field(() => FamilyWhereUniqueInput, {
+    nullable: true,
+  })
+  family?: FamilyWhereUniqueInput | null;
+
   @ApiProperty({
     required: false,
     enum: EnumSmartTagLang,

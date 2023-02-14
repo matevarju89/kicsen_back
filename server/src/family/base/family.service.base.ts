@@ -10,7 +10,7 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Family, User, Recipe } from "@prisma/client";
+import { Prisma, Family, User, Recipe, SmartTag } from "@prisma/client";
 
 export class FamilyServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -78,5 +78,16 @@ export class FamilyServiceBase {
         where: { id: parentId },
       })
       .recipes(args);
+  }
+
+  async findSmartTags(
+    parentId: string,
+    args: Prisma.SmartTagFindManyArgs
+  ): Promise<SmartTag[]> {
+    return this.prisma.family
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .smartTags(args);
   }
 }

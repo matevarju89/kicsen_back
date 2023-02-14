@@ -21,6 +21,7 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
   description: "exampleDescription",
+  forHowMany: 42,
   id: "exampleId",
   ingredients: "exampleIngredients",
   title: "exampleTitle",
@@ -29,6 +30,7 @@ const CREATE_INPUT = {
 const CREATE_RESULT = {
   createdAt: new Date(),
   description: "exampleDescription",
+  forHowMany: 42,
   id: "exampleId",
   ingredients: "exampleIngredients",
   title: "exampleTitle",
@@ -38,6 +40,7 @@ const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
     description: "exampleDescription",
+    forHowMany: 42,
     id: "exampleId",
     ingredients: "exampleIngredients",
     title: "exampleTitle",
@@ -47,6 +50,7 @@ const FIND_MANY_RESULT = [
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
   description: "exampleDescription",
+  forHowMany: 42,
   id: "exampleId",
   ingredients: "exampleIngredients",
   title: "exampleTitle",

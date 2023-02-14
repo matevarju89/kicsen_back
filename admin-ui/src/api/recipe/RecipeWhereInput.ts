@@ -1,5 +1,6 @@
 import { StringFilter } from "../../util/StringFilter";
 import { FamilyWhereUniqueInput } from "../family/FamilyWhereUniqueInput";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { ImageListRelationFilter } from "../image/ImageListRelationFilter";
 import { UserListRelationFilter } from "../user/UserListRelationFilter";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
@@ -13,6 +14,7 @@ export type RecipeWhereInput = {
   description?: StringFilter;
   difficulty?: "easy" | "medium" | "hard";
   family?: FamilyWhereUniqueInput;
+  forHowMany?: IntNullableFilter;
   id?: StringFilter;
   images?: ImageListRelationFilter;
   ingredients?: StringFilter;

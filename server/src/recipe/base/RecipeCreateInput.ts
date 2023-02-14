@@ -12,7 +12,13 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { EnumRecipeCategory1 } from "./EnumRecipeCategory1";
-import { IsEnum, IsOptional, IsString, ValidateNested } from "class-validator";
+import {
+  IsEnum,
+  IsOptional,
+  IsString,
+  ValidateNested,
+  IsInt,
+} from "class-validator";
 import { EnumRecipeCategory2 } from "./EnumRecipeCategory2";
 import { EnumRecipeCategory3 } from "./EnumRecipeCategory3";
 import { EnumRecipeCategory4 } from "./EnumRecipeCategory4";
@@ -94,6 +100,17 @@ class RecipeCreateInput {
     nullable: true,
   })
   family?: FamilyWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  forHowMany?: number | null;
 
   @ApiProperty({
     required: false,

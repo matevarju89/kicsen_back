@@ -88,6 +88,7 @@ export class RecipeControllerBase {
           },
         },
 
+        forHowMany: true,
         id: true,
         ingredients: true,
 
@@ -132,6 +133,7 @@ export class RecipeControllerBase {
           },
         },
 
+        forHowMany: true,
         id: true,
         ingredients: true,
 
@@ -177,6 +179,7 @@ export class RecipeControllerBase {
           },
         },
 
+        forHowMany: true,
         id: true,
         ingredients: true,
 
@@ -245,6 +248,7 @@ export class RecipeControllerBase {
             },
           },
 
+          forHowMany: true,
           id: true,
           ingredients: true,
 
@@ -298,6 +302,7 @@ export class RecipeControllerBase {
             },
           },
 
+          forHowMany: true,
           id: true,
           ingredients: true,
 
@@ -659,6 +664,13 @@ export class RecipeControllerBase {
       ...query,
       select: {
         createdAt: true,
+
+        family: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         lang: true,
         name: true,

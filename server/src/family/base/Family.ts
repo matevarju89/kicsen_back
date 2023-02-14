@@ -15,6 +15,7 @@ import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { User } from "../../user/base/User";
 import { Recipe } from "../../recipe/base/Recipe";
+import { SmartTag } from "../../smartTag/base/SmartTag";
 
 @ObjectType()
 class Family {
@@ -82,6 +83,15 @@ class Family {
   @Type(() => Recipe)
   @IsOptional()
   recipes?: Array<Recipe>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SmartTag],
+  })
+  @ValidateNested()
+  @Type(() => SmartTag)
+  @IsOptional()
+  smartTags?: Array<SmartTag>;
 
   @ApiProperty({
     required: true,

@@ -4,18 +4,23 @@ import {
   Create,
   SimpleForm,
   CreateProps,
+  ReferenceInput,
   SelectInput,
   TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
 
+import { FamilyTitle } from "../family/FamilyTitle";
 import { RecipeTitle } from "../recipe/RecipeTitle";
 
 export const SmartTagCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <ReferenceInput source="family.id" reference="Family" label="Family">
+          <SelectInput optionText={FamilyTitle} />
+        </ReferenceInput>
         <SelectInput
           source="lang"
           label="Lang"

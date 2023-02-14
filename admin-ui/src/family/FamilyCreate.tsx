@@ -11,6 +11,7 @@ import {
 
 import { UserTitle } from "../user/UserTitle";
 import { RecipeTitle } from "../recipe/RecipeTitle";
+import { SmartTagTitle } from "../smartTag/SmartTagTitle";
 
 export const FamilyCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -41,6 +42,14 @@ export const FamilyCreate = (props: CreateProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={RecipeTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="smartTags"
+          reference="SmartTag"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SmartTagTitle} />
         </ReferenceArrayInput>
       </SimpleForm>
     </Create>

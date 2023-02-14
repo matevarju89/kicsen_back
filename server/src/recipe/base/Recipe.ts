@@ -18,6 +18,7 @@ import {
   IsDate,
   IsString,
   ValidateNested,
+  IsInt,
 } from "class-validator";
 import { EnumRecipeCategory2 } from "./EnumRecipeCategory2";
 import { EnumRecipeCategory3 } from "./EnumRecipeCategory3";
@@ -112,6 +113,17 @@ class Recipe {
   @Type(() => Family)
   @IsOptional()
   family?: Family | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  forHowMany!: number | null;
 
   @ApiProperty({
     required: true,

@@ -29,6 +29,8 @@ import { UserFindManyArgs } from "../../user/base/UserFindManyArgs";
 import { User } from "../../user/base/User";
 import { RecipeFindManyArgs } from "../../recipe/base/RecipeFindManyArgs";
 import { Recipe } from "../../recipe/base/Recipe";
+import { SmartTagFindManyArgs } from "../../smartTag/base/SmartTagFindManyArgs";
+import { SmartTag } from "../../smartTag/base/SmartTag";
 import { FamilyService } from "../family.service";
 
 @graphql.Resolver(() => Family)
@@ -198,6 +200,26 @@ export class FamilyResolverBase {
     @graphql.Args() args: RecipeFindManyArgs
   ): Promise<Recipe[]> {
     const results = await this.service.findRecipes(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SmartTag])
+  @nestAccessControl.UseRoles({
+    resource: "SmartTag",
+    action: "read",
+    possession: "any",
+  })
+  async smartTags(
+    @graphql.Parent() parent: Family,
+    @graphql.Args() args: SmartTagFindManyArgs
+  ): Promise<SmartTag[]> {
+    const results = await this.service.findSmartTags(parent.id, args);
 
     if (!results) {
       return [];

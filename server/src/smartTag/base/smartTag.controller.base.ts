@@ -49,9 +49,24 @@ export class SmartTagControllerBase {
   @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
   async create(@common.Body() data: SmartTagCreateInput): Promise<SmartTag> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        family: data.family
+          ? {
+              connect: data.family,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
+
+        family: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         lang: true,
         name: true,
@@ -76,6 +91,13 @@ export class SmartTagControllerBase {
       ...args,
       select: {
         createdAt: true,
+
+        family: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         lang: true,
         name: true,
@@ -101,6 +123,13 @@ export class SmartTagControllerBase {
       where: params,
       select: {
         createdAt: true,
+
+        family: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
         lang: true,
         name: true,
@@ -132,9 +161,24 @@ export class SmartTagControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          family: data.family
+            ? {
+                connect: data.family,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
+
+          family: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
           lang: true,
           name: true,
@@ -168,6 +212,13 @@ export class SmartTagControllerBase {
         where: params,
         select: {
           createdAt: true,
+
+          family: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
           lang: true,
           name: true,
@@ -214,6 +265,7 @@ export class SmartTagControllerBase {
           },
         },
 
+        forHowMany: true,
         id: true,
         ingredients: true,
 

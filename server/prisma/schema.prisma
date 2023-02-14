@@ -34,6 +34,7 @@ model Recipe {
   difficulty  EnumRecipeDifficulty
   family      Family?               @relation(fields: [familyId], references: [id])
   familyId    String?
+  forHowMany  Int?
   id          String                @id @default(cuid())
   images      Image[]
   ingredients String
@@ -60,13 +61,14 @@ model Rating {
 
 model Family {
   country     String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime   @default(now())
   description String?
-  id          String   @id @default(cuid())
-  member      User[]   @relation(name: "families")
-  ownUsers    User[]   @relation(name: "ownFamily")
+  id          String     @id @default(cuid())
+  member      User[]     @relation(name: "families")
+  ownUsers    User[]     @relation(name: "ownFamily")
   recipes     Recipe[]
-  updatedAt   DateTime @updatedAt
+  smartTags   SmartTag[]
+  updatedAt   DateTime   @updatedAt
 }
 
 model Image {
@@ -82,6 +84,8 @@ model Image {
 
 model SmartTag {
   createdAt DateTime          @default(now())
+  family    Family?           @relation(fields: [familyId], references: [id])
+  familyId  String?
   id        String            @id @default(cuid())
   lang      EnumSmartTagLang?
   name      String?

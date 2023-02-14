@@ -49,6 +49,7 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={FAMILY_TITLE_FIELD} />
             </ReferenceField>
+            <TextField label="ForHowMany" source="forHowMany" />
             <TextField label="ID" source="id" />
             <TextField label="Ingredients" source="ingredients" />
             <ReferenceField label="PostedBy" source="user.id" reference="User">
