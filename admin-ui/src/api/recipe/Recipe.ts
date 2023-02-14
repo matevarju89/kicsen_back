@@ -15,6 +15,7 @@ export type Recipe = {
   description: string;
   difficulty?: "easy" | "medium" | "hard";
   family?: Family | null;
+  forHowMany: number | null;
   id: string;
   images?: Array<Image>;
   ingredients: string;

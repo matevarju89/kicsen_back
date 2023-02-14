@@ -8,6 +8,7 @@ import {
   SelectArrayInput,
   TextInput,
   ReferenceInput,
+  NumberInput,
   ReferenceArrayInput,
 } from "react-admin";
 
@@ -83,6 +84,7 @@ export const RecipeEdit = (props: EditProps): React.ReactElement => {
         <ReferenceInput source="family.id" reference="Family" label="Family">
           <SelectInput optionText={FamilyTitle} />
         </ReferenceInput>
+        <NumberInput step={1} label="ForHowMany" source="forHowMany" />
         <ReferenceArrayInput
           source="images"
           reference="Image"

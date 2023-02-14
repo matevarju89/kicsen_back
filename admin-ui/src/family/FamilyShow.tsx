@@ -61,12 +61,33 @@ export const FamilyShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={FAMILY_TITLE_FIELD} />
             </ReferenceField>
+            <TextField label="ForHowMany" source="forHowMany" />
             <TextField label="ID" source="id" />
             <TextField label="Ingredients" source="ingredients" />
             <ReferenceField label="PostedBy" source="user.id" reference="User">
               <TextField source={USER_TITLE_FIELD} />
             </ReferenceField>
             <TextField label="Title" source="title" />
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="SmartTag"
+          target="FamilyId"
+          label="SmartTags"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <ReferenceField
+              label="Family"
+              source="family.id"
+              reference="Family"
+            >
+              <TextField source={FAMILY_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="ID" source="id" />
+            <TextField label="Lang" source="lang" />
+            <TextField label="Name" source="name" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>

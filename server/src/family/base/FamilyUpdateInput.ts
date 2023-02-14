@@ -15,6 +15,7 @@ import { IsString, IsOptional, ValidateNested } from "class-validator";
 import { UserUpdateManyWithoutFamiliesInput } from "./UserUpdateManyWithoutFamiliesInput";
 import { Type } from "class-transformer";
 import { RecipeUpdateManyWithoutFamiliesInput } from "./RecipeUpdateManyWithoutFamiliesInput";
+import { SmartTagUpdateManyWithoutFamiliesInput } from "./SmartTagUpdateManyWithoutFamiliesInput";
 
 @InputType()
 class FamilyUpdateInput {
@@ -75,6 +76,18 @@ class FamilyUpdateInput {
     nullable: true,
   })
   recipes?: RecipeUpdateManyWithoutFamiliesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SmartTagUpdateManyWithoutFamiliesInput,
+  })
+  @ValidateNested()
+  @Type(() => SmartTagUpdateManyWithoutFamiliesInput)
+  @IsOptional()
+  @Field(() => SmartTagUpdateManyWithoutFamiliesInput, {
+    nullable: true,
+  })
+  smartTags?: SmartTagUpdateManyWithoutFamiliesInput;
 }
 
 export { FamilyUpdateInput };

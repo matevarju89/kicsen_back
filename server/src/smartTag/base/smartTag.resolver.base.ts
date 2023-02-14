@@ -27,6 +27,7 @@ import { SmartTagFindUniqueArgs } from "./SmartTagFindUniqueArgs";
 import { SmartTag } from "./SmartTag";
 import { RecipeFindManyArgs } from "../../recipe/base/RecipeFindManyArgs";
 import { Recipe } from "../../recipe/base/Recipe";
+import { Family } from "../../family/base/Family";
 import { SmartTagService } from "../smartTag.service";
 
 @graphql.Resolver(() => SmartTag)
@@ -98,7 +99,15 @@ export class SmartTagResolverBase {
   ): Promise<SmartTag> {
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        family: args.data.family
+          ? {
+              connect: args.data.family,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -115,7 +124,15 @@ export class SmartTagResolverBase {
     try {
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          family: args.data.family
+            ? {
+                connect: args.data.family,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -166,5 +183,21 @@ export class SmartTagResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Family, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Family",
+    action: "read",
+    possession: "any",
+  })
+  async family(@graphql.Parent() parent: SmartTag): Promise<Family | null> {
+    const result = await this.service.getFamily(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

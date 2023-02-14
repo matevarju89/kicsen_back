@@ -9,6 +9,7 @@ export type RecipeOrderByInput = {
   description?: SortOrder;
   difficulty?: SortOrder;
   familyId?: SortOrder;
+  forHowMany?: SortOrder;
   id?: SortOrder;
   ingredients?: SortOrder;
   postedById?: SortOrder;

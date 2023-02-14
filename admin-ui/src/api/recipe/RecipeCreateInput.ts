@@ -15,6 +15,7 @@ export type RecipeCreateInput = {
   description: string;
   difficulty: "easy" | "medium" | "hard";
   family?: FamilyWhereUniqueInput | null;
+  forHowMany?: number | null;
   images?: ImageCreateNestedManyWithoutRecipesInput;
   ingredients: string;
   likedBy?: UserCreateNestedManyWithoutRecipesInput;

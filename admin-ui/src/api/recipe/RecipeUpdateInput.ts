@@ -15,6 +15,7 @@ export type RecipeUpdateInput = {
   description?: string;
   difficulty?: "easy" | "medium" | "hard";
   family?: FamilyWhereUniqueInput | null;
+  forHowMany?: number | null;
   images?: ImageUpdateManyWithoutRecipesInput;
   ingredients?: string;
   likedBy?: UserUpdateManyWithoutRecipesInput;

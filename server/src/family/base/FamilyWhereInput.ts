@@ -17,6 +17,7 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { UserListRelationFilter } from "../../user/base/UserListRelationFilter";
 import { RecipeListRelationFilter } from "../../recipe/base/RecipeListRelationFilter";
+import { SmartTagListRelationFilter } from "../../smartTag/base/SmartTagListRelationFilter";
 
 @InputType()
 class FamilyWhereInput {
@@ -88,6 +89,18 @@ class FamilyWhereInput {
     nullable: true,
   })
   recipes?: RecipeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SmartTagListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SmartTagListRelationFilter)
+  @IsOptional()
+  @Field(() => SmartTagListRelationFilter, {
+    nullable: true,
+  })
+  smartTags?: SmartTagListRelationFilter;
 }
 
 export { FamilyWhereInput };

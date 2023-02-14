@@ -19,6 +19,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { EnumRecipeDifficulty } from "./EnumRecipeDifficulty";
 import { FamilyWhereUniqueInput } from "../../family/base/FamilyWhereUniqueInput";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { ImageListRelationFilter } from "../../image/base/ImageListRelationFilter";
 import { UserListRelationFilter } from "../../user/base/UserListRelationFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
@@ -93,6 +94,17 @@ class RecipeWhereInput {
     nullable: true,
   })
   family?: FamilyWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: IntNullableFilter,
+  })
+  @Type(() => IntNullableFilter)
+  @IsOptional()
+  @Field(() => IntNullableFilter, {
+    nullable: true,
+  })
+  forHowMany?: IntNullableFilter;
 
   @ApiProperty({
     required: false,

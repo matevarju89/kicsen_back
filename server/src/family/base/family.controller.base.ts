@@ -33,6 +33,9 @@ import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { RecipeFindManyArgs } from "../../recipe/base/RecipeFindManyArgs";
 import { Recipe } from "../../recipe/base/Recipe";
 import { RecipeWhereUniqueInput } from "../../recipe/base/RecipeWhereUniqueInput";
+import { SmartTagFindManyArgs } from "../../smartTag/base/SmartTagFindManyArgs";
+import { SmartTag } from "../../smartTag/base/SmartTag";
+import { SmartTagWhereUniqueInput } from "../../smartTag/base/SmartTagWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class FamilyControllerBase {
@@ -429,6 +432,7 @@ export class FamilyControllerBase {
           },
         },
 
+        forHowMany: true,
         id: true,
         ingredients: true,
 
@@ -506,6 +510,110 @@ export class FamilyControllerBase {
   ): Promise<void> {
     const data = {
       recipes: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "SmartTag",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/smartTags")
+  @ApiNestedQuery(SmartTagFindManyArgs)
+  async findManySmartTags(
+    @common.Req() request: Request,
+    @common.Param() params: FamilyWhereUniqueInput
+  ): Promise<SmartTag[]> {
+    const query = plainToClass(SmartTagFindManyArgs, request.query);
+    const results = await this.service.findSmartTags(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+
+        family: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        lang: true,
+        name: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Family",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/smartTags")
+  async connectSmartTags(
+    @common.Param() params: FamilyWhereUniqueInput,
+    @common.Body() body: SmartTagWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      smartTags: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Family",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/smartTags")
+  async updateSmartTags(
+    @common.Param() params: FamilyWhereUniqueInput,
+    @common.Body() body: SmartTagWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      smartTags: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Family",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/smartTags")
+  async disconnectSmartTags(
+    @common.Param() params: FamilyWhereUniqueInput,
+    @common.Body() body: SmartTagWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      smartTags: {
         disconnect: body,
       },
     };

@@ -378,6 +378,7 @@ export class UserControllerBase {
           },
         },
 
+        forHowMany: true,
         id: true,
         ingredients: true,
 
@@ -495,6 +496,7 @@ export class UserControllerBase {
           },
         },
 
+        forHowMany: true,
         id: true,
         ingredients: true,
 

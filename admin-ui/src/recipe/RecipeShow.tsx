@@ -29,6 +29,7 @@ export const RecipeShow = (props: ShowProps): React.ReactElement => {
         <ReferenceField label="Family" source="family.id" reference="Family">
           <TextField source={FAMILY_TITLE_FIELD} />
         </ReferenceField>
+        <TextField label="ForHowMany" source="forHowMany" />
         <TextField label="ID" source="id" />
         <TextField label="Ingredients" source="ingredients" />
         <ReferenceField label="PostedBy" source="user.id" reference="User">
