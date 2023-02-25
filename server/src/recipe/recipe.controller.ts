@@ -107,6 +107,7 @@ export class RecipeController extends RecipeControllerBase {
             url: true,
           },
         },
+        forHowMany: true,
         smartTags: {
           select: { id: true, name: true, lang: true },
         },
@@ -117,7 +118,21 @@ export class RecipeController extends RecipeControllerBase {
         },
         id: true,
         ingredients: true,
-
+        ratings: {
+          select: {
+            id: true,
+            comment: true,
+            stars: true,
+            postedBy: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+              },
+            },
+            createdAt: true,
+          },
+        },
         postedBy: {
           select: {
             id: true,
