@@ -1,24 +1,25 @@
-import { ValidationPipe } from "@nestjs/common";
-import { HttpAdapterHost, NestFactory } from "@nestjs/core";
-import { OpenAPIObject, SwaggerModule } from "@nestjs/swagger";
-import { HttpExceptionFilter } from "./filters/HttpExceptions.filter";
+import { ValidationPipe } from '@nestjs/common';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+import { HttpExceptionFilter } from './filters/HttpExceptions.filter';
 // @ts-ignore
 // eslint-disable-next-line
-import { AppModule } from "./app.module";
+import { AppModule } from './app.module';
 import {
   swaggerPath,
   swaggerDocumentOptions,
   swaggerSetupOptions,
   // @ts-ignore
   // eslint-disable-next-line
-} from "./swagger";
+} from './swagger';
+import helmet from 'helmet';
 
 const { PORT = 3000 } = process.env;
 
 async function main() {
   const app = await NestFactory.create(AppModule, { cors: true });
-
-  app.setGlobalPrefix("api");
+  app.use(helmet());
+  app.setGlobalPrefix('api');
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -32,7 +33,7 @@ async function main() {
     Object.values(path).forEach((method: any) => {
       if (
         Array.isArray(method.security) &&
-        method.security.includes("isPublic")
+        method.security.includes('isPublic')
       ) {
         method.security = [];
       }

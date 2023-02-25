@@ -12,6 +12,7 @@ import { ApiNestedQuery } from '../decorators/api-nested-query.decorator';
 import { FamilyWhereUniqueInput } from './base/FamilyWhereUniqueInput';
 import { Request } from 'express';
 import * as errors from '../errors';
+import { SmartTag } from '../smartTag/base/SmartTag';
 import { AclFilterResponseInterceptor } from '../interceptors/aclFilterResponse.interceptor';
 
 @swagger.ApiTags('families')
@@ -94,7 +95,7 @@ export class FamilyController extends FamilyControllerBase {
     @common.Req() request: Request,
     @common.Param() params: FamilyWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Number> {
+  ): Promise<{ count: number; smartTags: Array<SmartTag> }> {
     const query = plainToClass(RecipeFindManyArgs, request.query);
     const permission = this.rolesBuilder.permission({
       role: userRoles,
@@ -102,17 +103,18 @@ export class FamilyController extends FamilyControllerBase {
       possession: 'any',
       resource: 'Recipe',
     });
-    const resultsCount = await this.service.countRecipes(params.id, {
+    const results = await this.service.countRecipes(params.id, {
       ...query,
       select: {
         id: true,
+        smartTags: true,
       },
     });
-    if (resultsCount === null) {
+    if (results === null) {
       throw new errors.NotFoundException(
         `No resource was found for ${JSON.stringify(params)}`
       );
     }
-    return resultsCount;
+    return results;
   }
 }

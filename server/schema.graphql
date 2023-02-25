@@ -58,6 +58,7 @@ type Family {
   member(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): [User!]!
   ownUsers(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): [User!]!
   recipes(orderBy: [RecipeOrderByInput!], skip: Float, take: Float, where: RecipeWhereInput): [Recipe!]!
+  smartTags(orderBy: [SmartTagOrderByInput!], skip: Float, take: Float, where: SmartTagWhereInput): [SmartTag!]!
   updatedAt: DateTime!
 }
 
@@ -67,6 +68,7 @@ input FamilyCreateInput {
   member: UserCreateNestedManyWithoutFamiliesInput
   ownUsers: UserCreateNestedManyWithoutFamiliesInput
   recipes: RecipeCreateNestedManyWithoutFamiliesInput
+  smartTags: SmartTagCreateNestedManyWithoutFamiliesInput
 }
 
 input FamilyCreateNestedManyWithoutUsersInput {
@@ -93,6 +95,7 @@ input FamilyUpdateInput {
   member: UserUpdateManyWithoutFamiliesInput
   ownUsers: UserUpdateManyWithoutFamiliesInput
   recipes: RecipeUpdateManyWithoutFamiliesInput
+  smartTags: SmartTagUpdateManyWithoutFamiliesInput
 }
 
 input FamilyUpdateManyWithoutUsersInput {
@@ -108,6 +111,7 @@ input FamilyWhereInput {
   member: UserListRelationFilter
   ownUsers: UserListRelationFilter
   recipes: RecipeListRelationFilter
+  smartTags: SmartTagListRelationFilter
 }
 
 input FamilyWhereUniqueInput {
@@ -337,6 +341,7 @@ type Recipe {
   description: String!
   difficulty: EnumRecipeDifficulty
   family: Family
+  forHowMany: Float
   id: String!
   images(orderBy: [ImageOrderByInput!], skip: Float, take: Float, where: ImageWhereInput): [Image!]!
   ingredients: String!
@@ -356,6 +361,7 @@ input RecipeCreateInput {
   description: String!
   difficulty: EnumRecipeDifficulty!
   family: FamilyWhereUniqueInput
+  forHowMany: Float
   images: ImageCreateNestedManyWithoutRecipesInput
   ingredients: String!
   likedBy: UserCreateNestedManyWithoutRecipesInput
@@ -392,6 +398,7 @@ input RecipeOrderByInput {
   description: SortOrder
   difficulty: SortOrder
   familyId: SortOrder
+  forHowMany: SortOrder
   id: SortOrder
   ingredients: SortOrder
   postedById: SortOrder
@@ -407,6 +414,7 @@ input RecipeUpdateInput {
   description: String
   difficulty: EnumRecipeDifficulty
   family: FamilyWhereUniqueInput
+  forHowMany: Float
   images: ImageUpdateManyWithoutRecipesInput
   ingredients: String
   likedBy: UserUpdateManyWithoutRecipesInput
@@ -441,6 +449,7 @@ input RecipeWhereInput {
   description: StringFilter
   difficulty: EnumRecipeDifficulty
   family: FamilyWhereUniqueInput
+  forHowMany: IntNullableFilter
   id: StringFilter
   images: ImageListRelationFilter
   ingredients: StringFilter
@@ -457,6 +466,7 @@ input RecipeWhereUniqueInput {
 
 type SmartTag {
   createdAt: DateTime!
+  family: Family
   id: String!
   lang: EnumSmartTagLang
   name: String
@@ -465,9 +475,14 @@ type SmartTag {
 }
 
 input SmartTagCreateInput {
+  family: FamilyWhereUniqueInput
   lang: EnumSmartTagLang
   name: String
   recipe: RecipeCreateNestedManyWithoutSmartTagsInput
+}
+
+input SmartTagCreateNestedManyWithoutFamiliesInput {
+  connect: [SmartTagWhereUniqueInput!]
 }
 
 input SmartTagCreateNestedManyWithoutRecipesInput {
@@ -482,6 +497,7 @@ input SmartTagListRelationFilter {
 
 input SmartTagOrderByInput {
   createdAt: SortOrder
+  familyId: SortOrder
   id: SortOrder
   lang: SortOrder
   name: SortOrder
@@ -489,9 +505,16 @@ input SmartTagOrderByInput {
 }
 
 input SmartTagUpdateInput {
+  family: FamilyWhereUniqueInput
   lang: EnumSmartTagLang
   name: String
   recipe: RecipeUpdateManyWithoutSmartTagsInput
+}
+
+input SmartTagUpdateManyWithoutFamiliesInput {
+  connect: [SmartTagWhereUniqueInput!]
+  disconnect: [SmartTagWhereUniqueInput!]
+  set: [SmartTagWhereUniqueInput!]
 }
 
 input SmartTagUpdateManyWithoutRecipesInput {
@@ -501,6 +524,7 @@ input SmartTagUpdateManyWithoutRecipesInput {
 }
 
 input SmartTagWhereInput {
+  family: FamilyWhereUniqueInput
   id: StringFilter
   lang: EnumSmartTagLang
   name: StringNullableFilter
