@@ -31,10 +31,12 @@ import { SmartTagEdit } from './smartTag/SmartTagEdit';
 import { SmartTagShow } from './smartTag/SmartTagShow';
 import { jwtAuthProvider } from './auth-provider/ra-auth-jwt';
 import { createTheme, ThemeProvider } from '@material-ui/core';
+import { createBrowserHistory as createHistory } from 'history';
 
 const App = (): React.ReactElement => {
   const [dataProvider, setDataProvider] = useState<DataProvider | null>(null);
   const theme = createTheme();
+  const newHistory = createHistory({ basename: '/admin' });
   useEffect(() => {
     buildGraphQLProvider
       .then((provider: any) => {
@@ -57,6 +59,7 @@ const App = (): React.ReactElement => {
           theme={theme}
           dashboard={Dashboard}
           loginPage={Login}
+          history={newHistory}
         >
           <Resource
             name='User'

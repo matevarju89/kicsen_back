@@ -7,7 +7,7 @@ import { ImageControllerBase } from './base/image.controller.base';
 import { AclValidateRequestInterceptor } from '../interceptors/aclValidateRequest.interceptor';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { InternalServerErrorException } from '@nestjs/common';
-import { UploadResponse } from './UploadResponse';
+import { UploadResponse } from './uploadResponse';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadedFile } from '@nestjs/common/decorators';
 import { ImageUploadDto } from './uploadDTO';
