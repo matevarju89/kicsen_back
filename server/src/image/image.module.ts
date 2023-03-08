@@ -5,8 +5,14 @@ import { ImageController } from './image.controller';
 import { ImageResolver } from './image.resolver';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 import { PrismaService } from 'nestjs-prisma';
+import { MulterModule } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 @Module({
-  imports: [CloudinaryModule, ImageModuleBase],
+  imports: [
+    CloudinaryModule,
+    ImageModuleBase,
+    MulterModule.register({ storage: memoryStorage() }),
+  ],
   controllers: [ImageController],
   providers: [ImageService, PrismaService, ImageResolver],
   exports: [ImageService],
