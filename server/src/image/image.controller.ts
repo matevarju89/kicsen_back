@@ -11,7 +11,10 @@ import { UploadResponse } from './uploadResponse';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadedFile } from '@nestjs/common/decorators';
 import { ImageUploadDto } from './uploadDTO';
-import { ParseFilePipeBuilder } from '@nestjs/common/pipes/file';
+import { ParseFilePipe } from '@nestjs/common/pipes/file';
+import { SharpPipe } from './sharp.pipe';
+import { MaxFileSizeValidator } from '@nestjs/common/pipes/file';
+import { FileTypeValidator } from '@nestjs/common/pipes/file';
 
 @swagger.ApiTags('images')
 @common.Controller('images')
@@ -24,6 +27,7 @@ export class ImageController extends ImageControllerBase {
   ) {
     super(service, rolesBuilder);
   }
+  //@common.UsePipes(SharpPipe);
   @common.UseInterceptors(
     AclValidateRequestInterceptor,
     FileInterceptor('file')
@@ -43,25 +47,22 @@ export class ImageController extends ImageControllerBase {
   @swagger.ApiForbiddenResponse({ type: errors.ForbiddenException })
   async uploadImage(
     @UploadedFile(
-      new ParseFilePipeBuilder()
-        .addFileTypeValidator({
-          fileType: /jpg|jpeg|png/,
-        })
-        .addMaxSizeValidator({
-          maxSize: 1000000,
-        })
-        .build({
-          errorHttpStatusCode: common.HttpStatus.UNPROCESSABLE_ENTITY,
-        })
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 10000000 }),
+          new FileTypeValidator({ fileType: /jpeg|jpg|png|webp/ }),
+        ],
+      }),
+      SharpPipe
     )
-    file: Express.Multer.File
+    file: Buffer
   ) {
     return await this.cloudinary
       .uploadImage(file)
       .then((data) => {
         return data;
       })
-      .catch(() => {
+      .catch((error) => {
         throw new InternalServerErrorException('Cloudinary service failure', {
           cause: new Error(),
           description: 'Cloudinary service failure',
